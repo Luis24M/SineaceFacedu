@@ -30,7 +30,11 @@ return [
     */
 
     'connections' => [
-
+        'mongodb' => [
+            'driver' => 'mongodb',
+            'dsn' => env('DB_URI'),
+            'database' => 'FaceduSineace',
+        ],
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DB_URL'),
