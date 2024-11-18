@@ -6,7 +6,7 @@
   <form action="{{ route('login')}}" method="POST" class="flex flex-col jsutify-center gap-7 [&>div>label]:p-2 [&>div>label]:text-lg">
     @csrf
     <div>
-      <label for="correo">Usuario</label>
+      <label for="correo">Usuario {{ Auth::user()->name }}</label>
       <input type="email" id="correo" name="correo" class="w-full p-2 border border-gray-300 rounded-lg mb-2">
     </div>
     <div>

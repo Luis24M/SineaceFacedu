@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Estandar;
 use Illuminate\Http\Request;
+use App\Models\Subcomite;
+use Illuminate\Support\Facades\Auth;
 
 class EstandarController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
+    public function index(String $estandar)
+    {   
+        $estandar = Estandar::where('nombre', $estandar)->first();
+        $subcomite = Subcomite::where('nombre', Auth::user()->subcommittee)->first();
+        return view('usuario.contextualizacion', compact('subcomite', 'estandar'));
     }
 
     /**

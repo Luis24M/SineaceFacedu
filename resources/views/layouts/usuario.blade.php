@@ -8,10 +8,10 @@
   <title>FACEDU - SINEACE</title>
 </head>
 <body class="flex">
-  <nav class="w-1/4 px-10 py-5 bg-[#D5D6E7] fixed h-screen">
+  <nav class="w-[350px] px-10 py-5 bg-[#D5D6E7] fixed h-screen flex flex-col items-center">
     @include('partials.sidebar')
   </nav>
-  <main>
+  <main class="w-full">
     @yield('content')
   </main>
 </body>
