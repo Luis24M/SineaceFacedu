@@ -1,90 +1,33 @@
-@extends('layouts.usuario')
+<div class="my-5 contenedor_doc flex justify-center items-center">
+  <div class="documento">
+    <div class="page">
+      <form action="{{ route('estandar.actualizarNarrativa', $estandar->nombre)}}" method="POST">
+        @csrf
+        <div id="toolbar">
+          <!-- Copiar el toolbar del ejemplo anterior -->
+        </div>
+        <div id="editor"></div>
+        <input type="hidden" name="narrativa" id="hiddenContent">
+        <button type="submit" class="py-2 px-4 bg-green-500 rounded-lg mt-4">Guardar</button>
+      </form>
+    </div>
+    <!-- Controles de zoom -->
+    <div class="zoom-controls">
+      <button onclick="zoomIn()" class="px-3 py-1 bg-gray-200 rounded mr-2">+</button>
+      <button onclick="zoomOut()" class="px-3 py-1 bg-gray-200 rounded mr-2">-</button>
+      <button onclick="resetZoom()" class="px-3 py-1 bg-gray-200 rounded">Reset</button>
+  </div>
 
-@section('content')
-    <section class="flex ml-[350px] min-h-screen">
-        @include('partials.contextBar')
-        @if(request()->routeIs('estandar.narrativa'))
-            <section class="w-full mr-[500px] mt-20">
-                @include('usuario.narrativa')
-            </section>
-        @endif
-        @if(request()->routeIs('estandar.index'))
-        <section class="mr-[500px] w-full h-full">
-            
-            <div class="contenedor_doc flex justify-center items-center py-24">
-                <!-- Contenido original (oculto) -->
-                <div id="contenido-original" style="display: none;">
-                    <h3 class="pt-2"><strong>Programa de estudios: </strong>{{ Auth::user()->program}}</h3>
-                    <h3><strong>Fecha de actualización: </strong>{{ date('d/m/Y') }}</h3>
-                    <!-- Aquí irá el contenido dinámico -->
-                    <br>
-                    <table class="w-full [&>tbody>tr]:w-full border-collapse border-[0.1px] border-slate-600 [&>tbody>tr>td]:border-[0.1px]  [&>tbody>tr>td]:border-slate-600">
-                        <thead>
-                            <tr class="bg-[#002060] text-white">
-                                <td class="p-2">MODELO DE ACREDITACIÓN SINEACE-2016</td>
-                            </tr>
-                        </thead>
-                        <tbody class="[&>tr>td]:p-2">
-                            <tr class="flex justify-between [&>td]:text-center [&>td]:grow">
-                                <td>DIMENSIÓN {{ $estandar->dimension}}</td>
-                                <td>FACTOR {{ $estandar->factor}}</td>
-                                <td>Estandar {{ $estandar->nombre}}</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <strong>
-                                        {{ $estandar->nombre}}. {{$estandar->titulo}}
-                                    </strong>
-                                    <p>{{$estandar->descripcion}}</p>
-                                </td>
-                            </tr>
-                        </table>
-                    </tbody>
-                    
-                </div>
-                
-                <!-- Contenedor de páginas -->
-                <div id="documento"></div>
-                
-                <!-- Controles de zoom -->
-                <div class="zoom-controls">
-                    <button onclick="zoomIn()" class="px-3 py-1 bg-gray-200 rounded mr-2">+</button>
-                    <button onclick="zoomOut()" class="px-3 py-1 bg-gray-200 rounded mr-2">-</button>
-                    <button onclick="resetZoom()" class="px-3 py-1 bg-gray-200 rounded">Reset</button>
-                </div>
-                
-                <!-- Navegación de páginas -->
-                <div class="page-navigation">
-                    <button onclick="prevPage()" class="px-3 py-1 bg-gray-200 rounded mr-2">←</button>
-                    <span id="page-counter">Página 1 de 1</span>
-                    <button onclick="nextPage()" class="px-3 py-1 bg-gray-200 rounded ml-2">→</button>
-                </div>
-                
-                <!-- Previsualización de páginas -->
-                {{-- <div class="page-preview">
-                    <div id="preview-container"></div>
-                </div> --}}
-            </div>
-            <section class="pb-20 mx-20">
-                <button onclick="exportToPDF()" class="px-4 py-2 bg-blue-500 text-white rounded mb-2 w-full">
-                    Exportar a PDF
-                </button>
-                <button onclick="print()" class="px-4 py-2 bg-green-500 text-white rounded w-full">
-                    Imprimir
-                </button>
-            </section>
-        </section>
-        @endif
-        <section id="right_sidebar" class="w-[500px] min-h-screen fixed right-0 bg-[#D5D6E7] px-20 py-7">
-            <section>
-                <h2 class="text-xl font-medium">Estandar {{ $estandar->nombre }}</h2>
-                <p class="text-md my-3">{{ $estandar->descripcion }}</p>
-            </section>
-            
-        </section>
-    </section>
+  </div>
+  
+  <!-- Initialize Quill editor -->
+  <script>
+    const options = {
+      placeholder: 'Escribe aquí...',
+      theme: 'snow'
+    }
+    const quill = new Quill('#editor', options);
 
-    <script>
         let currentZoom = 1;
         let currentPage = 1;
         let totalPages = 1;
@@ -263,4 +206,5 @@
             updatePreviews();
         });
     </script>
-@endsection
+
+</div>

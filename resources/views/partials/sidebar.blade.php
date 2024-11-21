@@ -26,8 +26,8 @@
         <a href="{{ route('usuario.home') }}">Main</a>
     </li>
     {{-- mostrar estandares atraves de subcommittee, subcommittee solo es el nombre tendria que buscarse los estandares en los documents de Subcomite --}}
-    <h2 class="text-xl mt-6 text-center">Estandares</h2>
-    <hr class="w-full">
+    {{-- <h2 class="text-xl mt-6 text-center">Estandares</h2> --}}
+    {{-- <hr class="w-full"> --}}
     <div class=mt-4>
         @foreach ($subcomite->estandares as $estandar)
             <a href="{{ route('estandar.index', $estandar)}}" class="flex gap-2">

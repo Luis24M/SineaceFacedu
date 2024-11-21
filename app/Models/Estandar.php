@@ -10,6 +10,10 @@ class Estandar extends Model
     protected $fillable = [
         'id',
         'nombre',
+        'titulo',
+        'factor',
+        'programa',
+        'dimension',
         'descripcion',
         'contextualizacion',
         'criterios',

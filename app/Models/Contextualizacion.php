@@ -13,4 +13,11 @@ class Contextualizacion extends Model
         'planMejora',
         'narrativa',
     ];
+
+    public function actualizarNarrativa($narrativa)
+    {
+        $this->narrativa = $narrativa;
+        $this->save();
+    }
+
 }
