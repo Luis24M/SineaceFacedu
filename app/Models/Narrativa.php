@@ -8,7 +8,9 @@ class Narrativa extends Model
 {
     protected $connection = 'mongodb';
     protected $fillable = [
-        'id',
-        'criterio',
+        'misionUNT',
+        'misionFacultad',
+        'misionPrograma',
+        'problematicas',
     ];
 }

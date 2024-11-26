@@ -8,11 +8,8 @@ class Estandar extends Model
 {
     protected $connection = 'mongodb';
     protected $fillable = [
-        'id',
-        'nombre',
         'titulo',
         'factor',
-        'programa',
         'dimension',
         'descripcion',
         'contextualizacion',

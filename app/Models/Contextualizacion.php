@@ -8,9 +8,8 @@ class Contextualizacion extends Model
 {
     protected $connection = 'mongodb';
     protected $fillable = [
-        'id',
         'brechas',
-        'planMejora',
+        'planesMejora',
         'narrativa',
     ];
 

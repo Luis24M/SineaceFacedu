@@ -8,8 +8,7 @@ class Criterio extends Model
 {
     protected $connection = 'mongodb';
     protected $fillable = [
-        'id',
         'nombre',
-        'evidencia',
+        'evidencias',
     ];
 }
