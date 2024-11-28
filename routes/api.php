@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserApiController;
 use App\Http\Controllers\EvidenciasApiController;
 use App\Http\Controllers\CriterioApiController;
+use App\Http\Controllers\EstandarApiController ;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -27,3 +28,8 @@ Route::post('evidencia',[EvidenciasApiController::class,'create'])->name('nevide
 /*RUTA CRITERIOS*/
 Route::get('criterios',[CriterioApiController::class,'index'])->name('criterios');
 Route::post('criterio',[CriterioApiController::class,'create'])->name('ncriterio');
+Route::get('criterio',[CriterioApiController::class,'test'])->name('test');
+
+/*RUTA ESTANDARES */
+Route::get('estandares',[EstandarApiController::class,'index'])->name('estandares');
+Route::post('estandar',[EstandarApiController::class,'create'])->name('estandar');

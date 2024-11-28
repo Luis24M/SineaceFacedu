@@ -36,6 +36,11 @@ class CriterioApiController extends Controller
         return response()->json($criteriosConEvidencias);
     }
     
+    public function test(){
+
+        $criterio = Criterio::where('nombre','criterio2')->first();
+        return $criterio->_id;
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -44,21 +49,21 @@ class CriterioApiController extends Controller
     {
         try {
             $evidencia1 = Evidencia::create([
-                "nombre" => "Evidencia1",
-                "enlace" => "Enlace1"
+                "nombre" => "Evidencia3",
+                "enlace" => "Enlace3"
             ]);
             $evidencia2 = Evidencia::create([
-                "nombre" => "Evidencia2",
-                "enlace" => "Enlace2"
+                "nombre" => "Evidencia4",
+                "enlace" => "Enlace4"
             ]);
     
             // Depuración
-            \Log::info('Evidencia1 ID: ' . $evidencia1->_id);
-            \Log::info('Evidencia2 ID: ' . $evidencia2->_id);
+            \Log::info('Evidencia1 ID: ' . $evidencia1->id);
+            \Log::info('Evidencia2 ID: ' . $evidencia2->id);
     
             $criterio = Criterio::create([
                 'nombre' => 'criterio2',
-                'evidencias_ids' => [$evidencia1->_id, $evidencia2->_id]
+                'evidencias_ids' => [$evidencia1->id, $evidencia2->id]
             ]);
     
             // Más depuración

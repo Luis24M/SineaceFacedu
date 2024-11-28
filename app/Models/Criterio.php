@@ -8,6 +8,7 @@ use MongoDB\BSON\ObjectId;
 class Criterio extends Model
 {
     protected $connection = 'mongodb';
+    protected $collection = 'criterios';
     
     protected $fillable = [
         'nombre',
