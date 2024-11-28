@@ -8,18 +8,19 @@ use MongoDB\BSON\ObjectId;
 class Criterio extends Model
 {
     protected $connection = 'mongodb';
+    
     protected $fillable = [
         'nombre',
-        'evidencias_ids',
+        'evidencias_ids'
     ];
 
-    public function setEvidenciasIdsAttribute($value){
-
-        //CONVERTIR VALORES A OID SI SON STRINGS
-        $this->attributes['evidencias_ids'] = array_map(function($id){
-            return $id instanceof ObjectId ? $id : new ObjectId($id); 
-        });
-        
+    public function setEvidenciasIdsAttribute($value)
+    {
+        if (is_array($value)) {
+            $this->attributes['evidencias_ids'] = array_map(function($id) {
+                return $id instanceof ObjectId ? $id : new ObjectId($id);
+            }, $value);
+        }
     }
 
     public function evidencias(){

@@ -25,4 +25,5 @@ Route::get('evidencias',[EvidenciasApiController::class,'index'])->name('evidenc
 Route::post('evidencia',[EvidenciasApiController::class,'create'])->name('nevidencia');
 
 /*RUTA CRITERIOS*/
+Route::get('criterios',[CriterioApiController::class,'index'])->name('criterios');
 Route::post('criterio',[CriterioApiController::class,'create'])->name('ncriterio');
