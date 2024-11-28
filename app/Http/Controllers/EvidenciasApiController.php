@@ -23,8 +23,8 @@ class EvidenciasApiController extends Controller
         //
         try{
             $evidencia = Evidencia::create([
-                "nombre"=>"Evidencia2",
-                "enlace"=>"Enlace2"
+                "nombre"=>"Evidencia1",
+                "enlace"=>"Enlace1"
             ]);
             return response()->json($evidencia);
         }catch(Exception $ex){
