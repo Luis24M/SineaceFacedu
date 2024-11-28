@@ -33,11 +33,10 @@ class UserApiController extends Controller
         try{
 
             $user = User::create([
-                'name'=>'user3',
-                'lastname'=>'user3',
-                'email'=>'user3@gmail.com',
+                'name'=>'user1',
+                'lastname'=>'user1',
+                'email'=>'user1@gmail.com',
                 'password'=>'user1234',
-                'program'=>'ED SEC',
                 'rol'=>'colaborador'
             ]);
     
