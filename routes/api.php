@@ -7,6 +7,7 @@ use App\Http\Controllers\UserApiController;
 use App\Http\Controllers\EvidenciasApiController;
 use App\Http\Controllers\CriterioApiController;
 use App\Http\Controllers\EstandarApiController ;
+use App\Http\Controllers\ContextualizacionApiController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -33,3 +34,7 @@ Route::get('criterio',[CriterioApiController::class,'test'])->name('test');
 /*RUTA ESTANDARES */
 Route::get('estandares',[EstandarApiController::class,'index'])->name('estandares');
 Route::post('estandar',[EstandarApiController::class,'create'])->name('estandar');
+
+/*RUTA ESTANDARES */
+Route::get('contextualizaciones',[ContextualizacionApiController::class,'index'])->name('contextualizaciones');
+#Route::post('estandar',[EstandarApiController::class,'create'])->name('estandar');
