@@ -38,20 +38,6 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- phone --}}
-                        <div class="row mb-3">
-                            <label for="phone" class="col-md-4 col-form-label text-md-end">{{ __('Phone') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
-
-                                @error('phone')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
 
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
@@ -90,15 +76,16 @@
                         </div>
                         {{-- type --}}
                         <div class="row mb-3">
-                            <label for="type" class="col-md-4 col-form-label text-md-end">{{ __('Type') }}</label>
+                            <label for="rol" class="col-md-4 col-form-label text-md-end">{{ __('Rol') }}</label>
 
                             <div class="col-md-6">
-                                <select name="type" id="type" class="form-select @error('type') is-invalid @enderror" required>
+                                <select name="rol" id="rol" class="form-select @error('rol') is-invalid @enderror" required>
                                     <option value="admin">Admin</option>
+                                    <option value="adminPrograma">Admin de Programa</option>
                                     <option value="user">User</option>
                                 </select>
 
-                                @error('type')
+                                @error('rol')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -107,16 +94,13 @@
                         </div>
                         {{-- subcomite --}}
                         <div class="row mb-3">
-                            <label for="subcomite" class="col-md-4 col-form-label text-md-end">{{ __('Subcomite') }}</label>
-
+                            <label for="subcomite" class="col-md-4 col-form-label text-md-end">Subcomité</label>
                             <div class="col-md-6">
-                                <select name="subcommittee" id="subcomite" class="form-select @error('subcommittee') is-invalid @enderror" required>
-                                    <option value="1">Subcomite 1</option>
-                                    <option value="2">Subcomite 2</option>
-                                    <option value="3">Subcomite 3</option>
-                                    <option value="4">Subcomite 4</option>
-                                    <option value="5">Subcomite 5</option>
-                                    <option value="6">Subcomite 6</option>
+                                <select id="subcomite" name="subcomite" class="form-select @error('subcomite') is-invalid @enderror" >
+                                    <option value="" disabled selected>Selecciona un subcomité</option>
+                                    @foreach($subcomites as $subcomite)
+                                    <option value="{{ $subcomite->nombre }}">{{ $subcomite->nombre }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

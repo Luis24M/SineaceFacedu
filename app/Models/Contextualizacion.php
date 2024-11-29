@@ -7,16 +7,17 @@ use MongoDB\Laravel\Eloquent\Model;
 class Contextualizacion extends Model
 {
     protected $connection = 'mongodb';
+    protected $table = 'contextualizaciones';
     protected $fillable = [
         'brechas',
         'planesMejora',
         'narrativa',
     ];
 
-    public function actualizarNarrativa($narrativa)
-    {
-        $this->narrativa = $narrativa;
-        $this->save();
-    }
+    // public function actualizarNarrativa($narrativa)
+    // {
+    //     $this->narrativa = $narrativa;
+    //     $this->save();
+    // }
 
 }
