@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserApiController;
 use App\Http\Controllers\EvidenciasApiController;
 use App\Http\Controllers\CriterioApiController;
-use App\Http\Controllers\EstandarApiController ;
+use App\Http\Controllers\EstandarApiController;
+use App\Http\Controllers\SubcomiteApiController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -18,7 +19,7 @@ Route::get('/user', function (Request $request) {
 
 /*RUTAS USER*/ 
 Route::get('test',[UserApiController::class,'test'])->name('test');
-
+Route::get('users',[UserApiController::class,'index'])->name('users');
 Route::post('nuser',[UserApiController::class,'create'])->name('nuser');
 
 /*RUTAS EVIDENCIAS */
@@ -33,3 +34,7 @@ Route::get('criterio',[CriterioApiController::class,'test'])->name('test');
 /*RUTA ESTANDARES */
 Route::get('estandares',[EstandarApiController::class,'index'])->name('estandares');
 Route::post('estandar',[EstandarApiController::class,'create'])->name('estandar');
+
+/*RUTA SUBCOMITES*/
+Route::get('subcomites',[SubcomiteApiController::class,'index'])->name('subcomites');
+Route::post('subcomite',[SubcomiteApiController::class,'create'])->name('subcomite');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Criterio;
 use App\Models\Evidencia;
 use Illuminate\Http\Request;
+use MongoDB\BSON\ObjectId;
 
 class CriterioApiController extends Controller
 {
@@ -48,27 +49,39 @@ class CriterioApiController extends Controller
     public function create()
     {
         try {
+            // Crear las evidencias
             $evidencia1 = Evidencia::create([
-                "nombre" => "Evidencia3",
-                "enlace" => "Enlace3"
+                "nombre" => "Evidencia1",
+                "enlace" => "Enlace1"
             ]);
             $evidencia2 = Evidencia::create([
-                "nombre" => "Evidencia4",
-                "enlace" => "Enlace4"
+                "nombre" => "Evidencia2",
+                "enlace" => "Enlace2"
             ]);
     
             // Depuración
             \Log::info('Evidencia1 ID: ' . $evidencia1->id);
             \Log::info('Evidencia2 ID: ' . $evidencia2->id);
     
+            // Verificar que las evidencias existan
+            if (!$evidencia1 || !$evidencia2) {
+                \Log::error('Una o más evidencias no se han creado correctamente.');
+                return response()->json(['error' => 'Evidencias no encontradas'], 400);
+            }
+    
+            // Crear el criterio
             $criterio = Criterio::create([
-                'nombre' => 'criterio2',
-                'evidencias_ids' => [$evidencia1->id, $evidencia2->id]
+                'nombre' => 'criterio3',
+                'evidencias_ids' => [
+                    new ObjectId($evidencia1->id),
+                    new ObjectId($evidencia2->id)
+                ]
             ]);
     
-            // Más depuración
+            // Depuración
             \Log::info('Criterio creado: ', $criterio->toArray());
     
+            // Retornar el criterio creado
             return response()->json($criterio);
         } catch (\Exception $e) {
             // Capturar cualquier error
