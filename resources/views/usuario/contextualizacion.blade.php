@@ -15,7 +15,7 @@
                 <!-- Contenido original (oculto) -->
                 <div id="contenido-original" style="display: none;">
                     <h3 class="pt-2"><strong>Programa de estudios: </strong>{{ Auth::user()->program}}</h3>
-                    <h3><strong>Fecha de actualización: </strong>{{ date('d/m/Y') }}</h3>
+                    <h3><strong>Fecha de actualización: </strong>{{ date('d / m / Y') }}</h3>
                     <!-- Aquí irá el contenido dinámico -->
                     <br>
                     <table class="w-full [&>tbody>tr]:w-full border-collapse border-[0.1px] border-slate-600 [&>tbody>tr>td]:border-[0.1px]  [&>tbody>tr>td]:border-slate-600">
@@ -26,16 +26,24 @@
                         </thead>
                         <tbody class="[&>tr>td]:p-2">
                             <tr class="flex justify-between [&>td]:text-center [&>td]:grow">
-                                <td>DIMENSIÓN {{ $estandar->dimension}}</td>
-                                <td>FACTOR {{ $estandar->factor}}</td>
-                                <td>Estandar {{ $estandar->nombre}}</td>
+                                <td>{{ $estandar->dimension}}</td>
+                                <td>{{ $estandar->factor}}</td>
+                                <td>{{ $estandar->titulo}}</td>
                             </tr>
                             <tr>
                                 <td>
                                     <strong>
-                                        {{ $estandar->nombre}}. {{$estandar->titulo}}
+                                        {{$estandar->titulo}}
                                     </strong>
                                     <p>{{$estandar->descripcion}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h2><strong>1. Redacción de la contextualización</strong></h2>
+                                    {!! $narrativa->misionUNT !!}
+                                    {!! $narrativa->misionFacultad !!}
+                                    {!! $narrativa->misionPrograma !!}
                                 </td>
                             </tr>
                         </table>
@@ -77,7 +85,7 @@
         @endif
         <section id="right_sidebar" class="w-[500px] min-h-screen fixed right-0 bg-[#D5D6E7] px-20 py-7">
             <section>
-                <h2 class="text-xl font-medium">Estandar {{ $estandar->nombre }}</h2>
+                <h2 class="text-xl font-medium">{{ $estandar->titulo }}</h2>
                 <p class="text-md my-3">{{ $estandar->descripcion }}</p>
             </section>
             

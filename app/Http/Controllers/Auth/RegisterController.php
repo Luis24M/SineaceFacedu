@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Subcomite;
 
 class RegisterController extends Controller
 {
@@ -28,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -46,16 +47,24 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
+    
+    public function showRegistrationForm()
+    {
+        // Aquí puedes pasar datos adicionales a la vista de registro.
+        $subcomites = Subcomite::all();
+        return view('auth.register', compact('subcomites'));
+    }
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'type' => ['required', 'string', 'max:255'],
-            'subcommittee' => ['required', 'string', 'max:255'],
+            'rol' => ['required', 'string', 'max:255'],
+            'subcomite' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -70,11 +79,10 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'lastname' => $data['lastname'],
-            'phone' => $data['phone'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'type' => $data['type'],
-            'subcommittee' => $data['subcommittee'],
+            'rol' => $data['rol'],
+            'subcomite' => $data['subcomite'],
         ]);
     }
 }

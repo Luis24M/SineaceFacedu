@@ -19,6 +19,20 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    public function redirect()
+    {
+        if(Auth::user()->rol == 'adminPrograma'){
+            return $this->adminPrograma();
+        }
+        else {
+            if (Auth::user()->rol == 'admin') {
+                return $this->admin();
+            } else {
+                return $this->index();
+            }
+        }
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -26,8 +40,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //encontrar el subcomite del usuario
-        $subcomite = Subcomite::where('nombre', Auth::user()->subcommittee)->first();
-        return view('usuario.home', compact('subcomite'));
+        $subcomite = Subcomite::where('nombre', Auth::user()->subcomite)->first();
+        $estandares = Estandar::whereIn('id', $subcomite->estandares)->get();
+        return view('usuario.home', compact('subcomite', 'estandares'));
+    }
+
+    public function adminPrograma()
+    {
+        $subcomites = Subcomite::all();
+        $estandares = Estandar::all();
+        return view('adminPrograma.home', compact('subcomites', 'estandares'));
+    }
+
+    public function admin()
+    {
+        return view('administrador.home');
     }
 }

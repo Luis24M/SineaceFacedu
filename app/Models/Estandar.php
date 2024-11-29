@@ -8,6 +8,7 @@ use MongoDB\BSON\ObjectId;
 class Estandar extends Model
 {
     protected $connection = 'mongodb';
+    protected $table = 'estandares';
     protected $fillable = [
         'titulo',
         'factor',

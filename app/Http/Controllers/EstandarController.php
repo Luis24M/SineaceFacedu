@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Estandar;
 use App\Models\Contextualizacion;
+use App\Models\Narrativa;
 use Illuminate\Http\Request;
 use App\Models\Subcomite;
 use Illuminate\Support\Facades\Auth;
@@ -15,50 +16,64 @@ class EstandarController extends Controller
      */
     private function getSubcomite()
     {
-        return Subcomite::where('nombre', Auth::user()->subcommittee)->first();
+        return Subcomite::where('nombre', Auth::user()->subcomite)->first();
     }
 
-
-    public function index(String $estandar)
-    {   
-        $estandar = Estandar::where('nombre', $estandar)->first();
-        $subcomite = $this->getSubcomite();
-        $contextualizacion = Contextualizacion::where('id', $estandar->contextualizacion)->first();
-        return view('usuario.contextualizacion', compact('subcomite', 'estandar', 'contextualizacion'));
-    }
-
-    public function narrativa(String $estandar)
+    private function getNarrativa($id)
     {
-        $estandar = Estandar::where('nombre', $estandar)->first();
+        return Narrativa::where('id', $id)->first();
+    }
+
+    private function getContextualizacion($id)
+    {
+        return Contextualizacion::where('id', $id)->first();
+    }
+    
+
+    public function index(Estandar $estandar)
+    {   
         $subcomite = $this->getSubcomite();
-        $contextualizacion = Contextualizacion::where('id', $estandar->contextualizacion)->first();
-        dd($contextualizacion, $estandar, $subcomite);
+        $estandares = Estandar::whereIn('id', $subcomite->estandares)->get();
+        $contextualizacion = $this->getContextualizacion($estandar->contextualizacion);
+        $narrativa = $this->getNarrativa($contextualizacion->narrativa);
+        return view('usuario.contextualizacion', compact('subcomite', 'estandares', 'estandar', 'contextualizacion', 'narrativa'));
+    }
+
+    public function actualizarNarrativaPrograma(Estandar $estandar, Request $request)
+    {
+        $request->validate([
+            'programa' => ['nullable', 'string'],
+        ]);
+        $contextualizacion = $this->getContextualizacion($estandar->contextualizacion);
+        $narrativa = $this->getNarrativa($contextualizacion->narrativa);
+        $narrativa->misionPrograma = request('programa');
+        $narrativa->save();
+        return redirect()->back()->with('success', 'Narrativa actualizada correctamente');
+    }
+
+    public function actualizarNarrativaDescripcion(Estandar $estandar, Request $request)
+    {
+        $request->validate([
+            'problematica' => ['nullable', 'string'],
+        ]);
+        $contextualizacion = $this->getContextualizacion($estandar->contextualizacion);
+        $narrativa = $this->getNarrativa($contextualizacion->narrativa);
+        $narrativa->problematica = request('problematica');
+        $narrativa->save();
+        return redirect()->back()->with('success', 'Narrativa actualizada correctamente');
+    }
+
+
+    public function actualizarNarrativaP(Estandar $estandar)
+    {
+        $subcomite = $this->getSubcomite();
+        $estandares = Estandar::whereIn('id', $subcomite->estandares)->get();
+        // Actualizar narrativa
+        $contextualizacion->narrativa = request('narrativa');
+        $contextualizacion->save();
+
         return view('usuario.contextualizacion', compact('subcomite', 'estandar', 'contextualizacion'));
     }
-    public function actualizarNarrativa(String $estandar)
-{
-    // Buscar el estándar por nombre
-    $estandar = Estandar::where('nombre', $estandar)->first();
-    if (!$estandar) {
-        abort(404, 'Estandar no encontrado');
-    }
-
-    // Buscar la contextualización por el campo 'id'
-    $contextualizacion = Contextualizacion::where('id', $estandar->contextualizacion)->first();
-    dd($contextualizacion);
-    if (!$contextualizacion) {
-        abort(404, 'Contextualización no encontrada');
-    }
-
-    // Actualizar narrativa
-    $contextualizacion->narrativa = request('narrativa');
-    $contextualizacion->save();
-
-    $subcomite = $this->getSubcomite();
-
-    // Retornar la vista actualizada
-    return view('usuario.contextualizacion', compact('subcomite', 'estandar', 'contextualizacion'));
-}
 
     /**
      * Show the form for creating a new resource.

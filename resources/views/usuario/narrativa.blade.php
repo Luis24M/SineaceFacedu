@@ -1,32 +1,93 @@
-<div class="my-5 contenedor_doc flex justify-center items-center">
-  <div class="documento">
-    <div class="page">
-      <form action="{{ route('estandar.actualizarNarrativa', $estandar->nombre)}}" method="POST">
-        @csrf
-        <div id="toolbar">
-          <!-- Copiar el toolbar del ejemplo anterior -->
-        </div>
-        <div id="editor"></div>
-        <input type="hidden" name="narrativa" id="hiddenContent">
-        <button type="submit" class="py-2 px-4 bg-green-500 rounded-lg mt-4">Guardar</button>
-      </form>
-    </div>
-    <!-- Controles de zoom -->
-    <div class="zoom-controls">
-      <button onclick="zoomIn()" class="px-3 py-1 bg-gray-200 rounded mr-2">+</button>
-      <button onclick="zoomOut()" class="px-3 py-1 bg-gray-200 rounded mr-2">-</button>
-      <button onclick="resetZoom()" class="px-3 py-1 bg-gray-200 rounded">Reset</button>
-  </div>
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+<div class="my-3 contenedor_doc flex justify-center items-center">
+    <div class="documento">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        <div class="page flex flex-col gap-4 [&>div>h3]:text-xl [&>div>h3]:font-semibold">
+            <div>
+                <h3>UNT</h3>
+                <br>
+                @if($narrativa->misionUNT)
+                    <p>{{ $narrativa->misionUNT }}</p>
+                @else
+                    <p class="rounded-md px-3 py-2 w-full bg-yellow-100 border border-yellow-300">
+                        No se ha registrado la misión de la UNT
+                    </p>
+                @endif
+            </div>
+            <div>
+                <h3>FACULTAD</h3>
+                <br>
+                @if($narrativa->misionFacultad)
+                    <p>{{ $narrativa->misionFacultad }}</p>
+                @else
+                    <p class="rounded-md px-3 py-2 w-full bg-yellow-100 border border-yellow-300">
+                        No se ha registrado la misión de la Facultad
+                    </p>
+                @endif
+            </div>
+            <div>
+                <h3>PROGRAMA</h3>
+                <form action={{ route('estandar.actualizarNarrativaPrograma', $estandar) }} method="POST">
+                    @csrf
+                    <div id="toolbar">
 
-  </div>
-  
-  <!-- Initialize Quill editor -->
-  <script>
-    const options = {
-      placeholder: 'Escribe aquí...',
-      theme: 'snow'
-    }
-    const quill = new Quill('#editor', options);
+                    </div>
+
+                    <div id="editor1" class="">{!! $narrativa->misionPrograma !!}</div>
+                    <input type="hidden" name="programa" id="hiddenContentPrograma">
+                    <button id="content" class="py-2 px-4 bg-green-500 rounded-lg mt-2"
+                        onclick="verPrograma()">Guardar</button>
+                    <button>Agregar Problematica</button>
+                </form>
+            </div>
+            {{-- <div>
+                <h3>DESCRIPCIÓN</h3>
+                <form action={{ route('estandar.actualizarNarrativaDescripcion', $estandar->nombre) }} method="POST">
+                    @csrf
+                    <div id="toolbar">
+                    </div>
+                    <div id="editor2" class="min-h-[200px]">{{ $contextualizacion->narrativa['descripcion'] }}</div>
+                    <input type="hidden" name="descripcion" id="hiddenContentDescripcion">
+                    <button id="content" class="py-2 px-4 bg-green-500 rounded-lg mt-2"
+                        onclick="ver()">Guardar</button>
+                </form>
+            </div> --}}
+        </div>
+        <!-- Controles de zoom -->
+        <div class="zoom-controls">
+            <button onclick="zoomIn()" class="px-3 py-1 bg-gray-200 rounded mr-2">+</button>
+            <button onclick="zoomOut()" class="px-3 py-1 bg-gray-200 rounded mr-2">-</button>
+            <button onclick="resetZoom()" class="px-3 py-1 bg-gray-200 rounded">Reset</button>
+        </div>
+
+    </div>
+
+    <!-- Initialize Quill editor -->
+    <script>
+        var quill1 = new Quill('#editor1', {
+            theme: 'snow'
+        });
+
+        var quill2 = new Quill('#editor2', {
+            theme: 'snow'
+        });
+
+        function verPrograma() {
+            var content = document.querySelector('#hiddenContentPrograma');
+            content.value = quill1.root.innerHTML;
+            console.log(content);
+        }
+
+        function ver() {
+            var content = document.querySelector('#hiddenContentDescripcion');
+            content.value = quill2.getText();
+            console.log(content);
+        }
 
         let currentZoom = 1;
         let currentPage = 1;
@@ -66,31 +127,6 @@
             updatePageCounter();
         }
 
-        function crearPagina() {
-            const pagina = document.createElement('div');
-            pagina.className = 'page';
-
-            const header = document.createElement('div');
-            header.className = 'page-header';
-            header.innerHTML = `
-            <div class="relative flex justify-center items-center h-16">
-              <img src="{{ asset('images/logoUNTletras.png') }}" alt="Logo" class="absolute left-0 h-16 h-full">
-              <div class="text-center w-[380px]">
-                  <h1 class="text-lg font-bold">UNIVERSIDAD NACIONAL DE TRUJILLO</h1>
-                  <p class="text-sm font-semibold">OFICINA DE GESTIÓN DE LA CALIDAD </p>
-                  <p class="text-sm font-semibold">UNIDAD DE ACREDITACIÓN Y LICENCIAMIENTO</p>
-              </div>
-            </div>`;
-            // <p>${new Date().toLocaleDateString()}</p>
-
-
-            const content = document.createElement('div');
-            content.className = 'content';
-
-            pagina.appendChild(header);
-            pagina.appendChild(content);
-            return pagina;
-        }
 
         function zoomIn() {
             currentZoom += 0.1;
@@ -114,34 +150,7 @@
             });
         }
 
-        function prevPage() {
-            if (currentPage > 1) {
-                currentPage--;
-                updatePageCounter();
-                scrollToPage(currentPage);
-            }
-        }
 
-        function nextPage() {
-            if (currentPage < totalPages) {
-                currentPage++;
-                updatePageCounter();
-                scrollToPage(currentPage);
-            }
-        }
-
-        function updatePageCounter() {
-            document.getElementById('page-counter').textContent = `Página ${currentPage} de ${totalPages}`;
-        }
-
-        function scrollToPage(pageNum) {
-            const pages = document.querySelectorAll('.page');
-            if (pages[pageNum - 1]) {
-                pages[pageNum - 1].scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        }
 
         function updatePreviews() {
             const previewContainer = document.getElementById('preview-container');
@@ -160,45 +169,6 @@
                 previewContainer.appendChild(preview);
             });
         }
-
-        async function exportToPDF() {
-            const element = document.getElementById('documento');
-            const opt = {
-                margin: 1,
-                filename: 'documento.pdf',
-                image: {
-                    type: 'jpeg',
-                    quality: 0.98
-                },
-                html2canvas: {
-                    scale: 2
-                },
-                jsPDF: {
-                    unit: 'mm',
-                    format: 'a4',
-                    orientation: 'portrait'
-                }
-            };
-
-            try {
-                await html2pdf().set(opt).from(element).save();
-            } catch (error) {
-                console.error('Error al exportar a PDF:', error);
-                alert('Error al exportar a PDF. Por favor, intente nuevamente.');
-            }
-        }
-
-        // Observer para cambios en el contenido
-        const observer = new MutationObserver(() => {
-            distribuirContenido();
-            updatePreviews();
-        });
-
-        observer.observe(document.getElementById('contenido-original'), {
-            childList: true,
-            subtree: true,
-            characterData: true
-        });
 
         // Reajustar al cambiar el tamaño de la ventana
         window.addEventListener('resize', () => {
