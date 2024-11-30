@@ -16,4 +16,6 @@ class Estandar extends Model
         'contextualizacion',
         'criterios',
     ];
+
+    
 }

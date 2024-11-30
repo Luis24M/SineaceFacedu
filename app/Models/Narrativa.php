@@ -13,4 +13,5 @@ class Narrativa extends Model
         'misionPrograma',
         'problematicas',
     ];
+
 }
