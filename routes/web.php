@@ -14,7 +14,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/estandar/{estandar}/programa', 'actualizarNarrativaPrograma')->name('estandar.actualizarNarrativaPrograma');
     Route::post('/estandar/{estandar}/descripcion', 'actualizarNarrativaDescripcion')->name('estandar.actualizarNarrativaDescripcion');
   });
-  Route::post('/problematicas', [ProblematicaController::class, 'store'])->name('problematicas.store');
+  Route::post('/problematica/{narrativa}', [ProblematicaController::class, 'store'])->name('problematica.store');
 });
 
 Auth::routes();

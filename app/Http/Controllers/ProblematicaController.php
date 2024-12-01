@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Problematica;
+use App\Models\Narrativa;
+use MongoDB\BSON\ObjectId;
 use Illuminate\Http\Request;
 
 class ProblematicaController extends Controller
@@ -25,7 +27,7 @@ class ProblematicaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Narrativa $narrativa)
     {
         $data = $request->validate([
             'nombre' => 'required',
@@ -34,8 +36,10 @@ class ProblematicaController extends Controller
 
         $problematica = new Problematica($data);
         $problematica->save();
-
-        return response()->json($problematica);
+        // agregar el oid de la problematica al campo de problematicas de narrativa
+        $narrativa->problematicas = array_merge($narrativa->problematicas, [new ObjectId($problematica->id)]); 
+        $narrativa->save();
+        return redirect()->back()->with('success', 'Problematica creada correctamente');
     }
 
     /**

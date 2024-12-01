@@ -1,6 +1,8 @@
 @extends('layouts.usuario')
 
 @section('content')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <section class="flex ml-[350px] min-h-screen">
         @include('partials.contextBar')
         @if(request()->routeIs('estandar.narrativa'))
@@ -44,6 +46,9 @@
                                     {!! $narrativa->misionUNT !!}
                                     {!! $narrativa->misionFacultad !!}
                                     {!! $narrativa->misionPrograma !!}
+                                    @forEach($problematicas as $problematica)
+                                    <p>{{ $problematica->description }}</p> <br>
+                                    @endforEach
                                 </td>
                             </tr>
                         </table>
@@ -88,8 +93,12 @@
                 <h2 class="text-xl font-medium">{{ $estandar->titulo }}</h2>
                 <p class="text-md my-3">{{ $estandar->descripcion }}</p>
             </section>
-            
         </section>
+        @if (session('success'))
+    <script>
+        alert('Se ha guardado la información correctamente');
+    </script>
+    @endif
     </section>
 
     <script>

@@ -13,11 +13,4 @@ class Contextualizacion extends Model
         'planesMejora',
         'narrativa',
     ];
-
-    // public function actualizarNarrativa($narrativa)
-    // {
-    //     $this->narrativa = $narrativa;
-    //     $this->save();
-    // }
-
 }
