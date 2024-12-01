@@ -11,10 +11,13 @@ Route::middleware(['auth', 'role:user'])->group(function () {
   Route::controller(EstandarController::class)->group(function () {
     Route::get('/estandar/{estandar}', 'index')->name('estandar.index');
     Route::get('/estandar/{estandar}/narrativa', 'index')->name('estandar.narrativa');
+    Route::get('/estandar/{estandar}/brechas', 'index')->name('estandar.brechas');
+    Route::get('/estandar/{estandar}/planMejora', 'index')->name('estandar.planMejora');
     Route::post('/estandar/{estandar}/programa', 'actualizarNarrativaPrograma')->name('estandar.actualizarNarrativaPrograma');
     Route::post('/estandar/{estandar}/descripcion', 'actualizarNarrativaDescripcion')->name('estandar.actualizarNarrativaDescripcion');
   });
-  Route::post('/problematica/{narrativa}', [ProblematicaController::class, 'store'])->name('problematica.store');
+  Route::post('/problematica/{narrativa}/{contextualizacion}', [ProblematicaController::class, 'store'])->name('problematica.store');
+  Route::put('/problematica/{problematica}', [ProblematicaController::class, 'update'])->name('problematica.update');
 });
 
 Auth::routes();

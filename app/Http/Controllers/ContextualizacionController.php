@@ -52,7 +52,11 @@ class ContextualizacionController extends Controller
      */
     public function update(Request $request, Contextualizacion $contextualizacion)
     {
-        //
+        $data = $request->validate([
+            'nombre' => 'required',
+        ]);
+
+        $contextualizacion->brec = $data['nombre'];
     }
 
     /**

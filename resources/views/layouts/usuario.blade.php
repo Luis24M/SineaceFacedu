@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.tailwindcss.com"></script>
-
-
     <style>
         @media print {
             body * {
@@ -159,6 +157,26 @@
         
     </nav>
     <main class="w-full">
+        @if(session('success'))
+            <div id="success-notification" 
+                class="absolute z-20 right-0 bg-green-100 border-l-4 border-green-500 text-green-700 p-4">
+                <p class="font-bold">Success</p>
+                <p>{{ session('success') }}</p>
+            </div>
+
+            <script>
+                // Esconde la notificación después de 3 segundos
+                setTimeout(() => {
+                    const notification = document.getElementById('success-notification');
+                    if (notification) {
+                        notification.style.transition = 'opacity 0.5s ease';
+                        notification.style.opacity = '0'; // Desvanece la notificación
+                        setTimeout(() => notification.remove(), 500); // Elimina el elemento del DOM
+                    }
+                }, 1000); // Cambia este valor para ajustar el tiempo
+            </script>
+        @endif
+
         @yield('content')
     </main>
 </body>
