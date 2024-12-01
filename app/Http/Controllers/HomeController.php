@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Subcomite;
 use App\Models\Estandar;
+use App\Models\Programa;
 
 class HomeController extends Controller
 {
@@ -53,8 +54,8 @@ class HomeController extends Controller
     }
 
     public function admin()
-    {
-        
-        return view('administrador.home');
+    {   
+        $programas = Programa::all();
+        return view('administrador.home',compact('programas'));
     }
 }
