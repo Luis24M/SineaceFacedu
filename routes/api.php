@@ -8,6 +8,8 @@ use App\Http\Controllers\EvidenciasApiController;
 use App\Http\Controllers\CriterioApiController;
 use App\Http\Controllers\EstandarApiController ;
 use App\Http\Controllers\ContextualizacionApiController;
+use App\Http\Controllers\SubcomiteApiController;
+use App\Http\Controllers\ProgramaApiController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -38,3 +40,10 @@ Route::post('estandar',[EstandarApiController::class,'create'])->name('estandar'
 /*RUTA ESTANDARES */
 Route::get('contextualizaciones',[ContextualizacionApiController::class,'index'])->name('contextualizaciones');
 #Route::post('estandar',[EstandarApiController::class,'create'])->name('estandar');
+
+/*RUTA SUBCOMITES */
+Route::get('subcomites',[SubcomiteApiController::class,'index'])->name('subcomites');
+Route::post('subcomite',[SubcomiteApiController::class,'create'])->name('subcomite');
+
+/*RUTA PROGRAMAS */
+Route::get('programas',[ProgramaApiController::class,'index'])->name('programas');
