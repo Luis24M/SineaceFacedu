@@ -4,21 +4,43 @@
     <div class="h-1/4 ">
         <h1 class="ml-[350px] text-6xl"><b>Mis programas</b></h1>
     </div>
-    <div class="ml-[350px] bg-orange-100 h-1/2 border-2 border-orange-500 text-orange-700 p-4 w-3/4 mt-5 flex flex-col justify-center items-center">
+    
     @if(count($programas) > 0)
-        <p>si hay programas</p>
-    @else
-        <div>
-            <h2 class="text-3xl h-1/2 flex flex-col items-center justify-center">No hay programas actualmente</h2>
-        </div>
-    @endif
-
+    <div class="ml-[350px] h-1/2 border-2 p-4 w-3/4 mt-5 flex flex-col justify-center items-center">
+        @foreach( $programas as $programa)
+            <div class="w-1/3  p-6 bg-white border border-gray-200 rounded-lg shadow ">
+                <a href="#">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{{$programa->nombre}}</h5>
+                </a>
+                <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                    Ver
+                    <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                    </svg>
+                </a>
+            </div>
+        @endforeach
         <div class="h-1/2 flex flex-col items-center justify-center">
             <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" type="button">
                 Agregar
             </button>
         </div>
+    </div>
+    @else
+    <div class="ml-[350px] bg-orange-100 h-1/2 border-2 border-orange-500 text-orange-700 p-4 w-3/4 mt-5 flex flex-col justify-center items-center">
+        <div>
+            <h2 class="text-3xl h-1/2 flex flex-col items-center justify-center">No hay programas actualmente</h2>
+        </div>
+        <div class="h-1/2 flex flex-col items-center justify-center">
+            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" type="button">
+                Agregar
+            </button>
+        </div>
+    </div>
+    @endif
 
+
+    
 
 <!-- Main modal -->
 <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
