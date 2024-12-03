@@ -57,7 +57,7 @@ class HomeController extends Controller
 
     public function admin()
     {   
-        $programas = Programa::all();
+        $programas = Programa::with('usuario')->get();
         return view('administrador.home',compact('programas'));
     }
 
@@ -349,9 +349,11 @@ class HomeController extends Controller
             'name'=>$request->nombre,
             'lastname'=>$request->apellido,
             'email'=>$request->email,
-            'password'=>$request->nombre,
+            'dni'=>$request->dni,
+            'password'=>$request->dni,
             'rol'=>'adminPrograma',
-            'subcomite'
+            'subcomite',
+            'programa'=>$request->programa,
         ]);
 
         /*SUBCOMITES DE PROGRAMA */

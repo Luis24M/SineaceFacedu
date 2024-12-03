@@ -22,6 +22,7 @@
                 top: 0;
             }
         }
+
         .page {
             font-family: 'Times New Roman', Times, serif;
             background: white;
@@ -105,7 +106,7 @@
 </head>
 <body class="flex h-full">
     <nav class="w-[350px] px-10 py-5 bg-[#D5D6E7] fixed h-screen flex flex-col items-center">
-        @include('partials.sidebarAdmin')
+        @include('partials.sidebarAdminPrograma')
     </nav>
     <main class="w-full h-full flex flex-col justify-center items-center ">
         @yield('content')
