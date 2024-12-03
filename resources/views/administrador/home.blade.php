@@ -38,7 +38,8 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form class="p-4 md:p-5 " id="programaForm">
+            <form class="p-4 md:p-5 " id="programaForm" action="{{ route('home.crearPrograma') }}" method="POST">
+                @csrf
                 <div class="flex flex-col">
                 <label class="block mb-2 text-sm font-medium text-gray-900 mb-5  text-xl"><b>Programa</b></label>
                     <div class="col-span-2">

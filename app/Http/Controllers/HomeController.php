@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use MongoDB\BSON\ObjectId; 
 use App\Models\Subcomite;
 use App\Models\Estandar;
 use App\Models\Programa;
@@ -357,38 +358,85 @@ class HomeController extends Controller
         $subcomite1=Subcomite::Create([
             'nombre'=>'Gestion Misional Del Programa',
             'usuarios'=>[],
-            'estandares'=>[]
+            'estandares'=>[new ObjectId($estandar1->_id),
+            new ObjectId($estandar3->_id),
+            new ObjectId($estandar5->_id),
+            new ObjectId($estandar6->_id),
+            new ObjectId($estandar7->_id),
+            new ObjectId($estandar8->_id),
+            new ObjectId($estandar9->_id),
+            new ObjectId($estandar10->_id),
+            new ObjectId($estandar11->_id),
+            new ObjectId($estandar18->_id),
+            new ObjectId($estandar33->_id),
+            ]
         ]);
         $subcomite2=Subcomite::Create([
             'nombre'=>'Investigacion y Responsabilidad Social Universitaria',
             'usuarios'=>[],
-            'estandares'=>[]
+            'estandares'=>[
+                new ObjectId($estandar12->_id),
+                new ObjectId($estandar22->_id),
+                new ObjectId($estandar23->_id),
+                new ObjectId($estandar24->_id),
+                new ObjectId($estandar25->_id),
+                new ObjectId($estandar26->_id),
+            ]
         ]);
         $subcomite3=Subcomite::Create([
             'nombre'=>'Seguimiento al Egresado',
             'usuarios'=>[],
-            'estandares'=>[]
+            'estandares'=>[
+                new ObjectId($estandar2->_id),
+                new ObjectId($estandar33->_id),
+                new ObjectId($estandar33->_id)
+                ]
         ]);
         $subcomite4=Subcomite::Create([
             'nombre'=>'Seguimiento al Estudiante y Movilidad',
             'usuarios'=>[],
-            'estandares'=>[]
+            'estandares'=>[
+                new ObjectId($estandar13->_id),
+                new ObjectId($estandar19->_id),
+                new ObjectId($estandar20->_id)
+            ]
         ]);
         $subcomite5=Subcomite::Create([
             'nombre'=>'Desarrollo Docente, Administrativo y Actividades Extracurriculares',
             'usuarios'=>[],
-            'estandares'=>[]
+            'estandares'=>[
+                new ObjectId($estandar14->_id),
+                new ObjectId($estandar15->_id),
+                new ObjectId($estandar16->_id),
+                new ObjectId($estandar17->_id),
+                new ObjectId($estandar21->_id),
+                new ObjectId($estandar27->_id)
+            ]
         ]);
-        $subcomite=Subcomite::Create([
+        $subcomite6=Subcomite::Create([
             'nombre'=>'Practicas Pre Profesionales, Recursos, Equipamiento e Infraestructura',
             'usuarios'=>[],
-            'estandares'=>[]
+            'estandares'=>[
+                new ObjectId($estandar4->_id),
+                new ObjectId($estandar28->_id),
+                new ObjectId($estandar29->_id),
+                new ObjectId($estandar30->_id),
+                new ObjectId($estandar31->_id),
+                new ObjectId($estandar32->_id)
+            ]
         ]);
 
         $programa=Programa::Create([
             'nombre'=>$request->programa,
-            'subcomites'=>[],
-            'adminPrograma'
+            'subcomites'=>[
+                new ObjectId($subcomite1->_id),
+                new ObjectId($subcomite2->_id),
+                new ObjectId($subcomite3->_id),
+                new ObjectId($subcomite4->_id),
+                new ObjectId($subcomite5->_id),
+                new ObjectId($subcomite6->_id)
+            ],
+            'adminPrograma'=>new ObjectId($coordinador->_id)
         ]);
     }
 
