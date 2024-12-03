@@ -17,4 +17,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
   Route::post('/problematica/{narrativa}', [ProblematicaController::class, 'store'])->name('problematica.store');
 });
 
+Route::middleware(['auth','role:admin'])->group(function (){
+  Route::post('/crearPrograma',[HomeController::class,'CrearPrograma'])->name('home.crearPrograma');
+});
+
 Auth::routes();
