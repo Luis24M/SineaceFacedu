@@ -1,106 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-            #documento, #documento * {
-                visibility: visible;
-            }
-            #documento {
-                position: absolute;
-                left: 0;
-                top: 0;
-            }
-        }
-
-        .page {
-            font-family: 'Times New Roman', Times, serif;
-            background: white;
-            box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
-            margin: 0 auto;
-            margin-bottom: 0.5cm;
-            width: 21cm;
-            min-height: 29.7cm;
-            padding: 1cm 2cm;
-            position: relative;
-        }
-
-        .page-header {
-            position: running(header);
-            width: 100%;
-            height: 2cm;
-            /* padding: 0.5cm; */
-            border-bottom: 4px solid #000;
-        }
-
-        @page {
-            size: A4;
-            margin: 0;
-            @top-center {
-                content: element(header);
-            }
-        }
-
-        .zoom-controls {
-            position: fixed;
-            bottom: 20px;
-            right: 520px;
-            background: white;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
-
-        .page-navigation {
-            position: fixed;
-            bottom: 20px;
-            left: 370px;
-            background: white;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
-
-        .page-preview {
-            position: fixed;
-            left: 370px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: white;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
-
-        .preview-thumbnail {
-            width: 100px;
-            height: 141px;
-            border: 1px solid #ddd;
-            margin: 5px 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .preview-thumbnail:hover {
-            transform: scale(1.05);
-        }
-
-        .preview-thumbnail.active {
-            border: 2px solid #4CAF50;
-        }
-    </style>
+    @vite('resources/css/app.css')
     <title>FACEDU - SINEACE</title>
 </head>
+
 <body class="flex">
     <nav class="w-[350px] px-10 py-5 bg-[#D5D6E7] fixed h-screen flex flex-col items-center">
         <section class="flex justify-center items-center">
@@ -112,7 +20,6 @@
             <h2><strong>{{ Auth::user()->name }} {{ Auth::user()->lastname }}</strong></h2>
             <h3>{{ Auth::user()->email }}</h3>
         </section>
-        
         <ul class="flex flex-col h-1/2 py-20">
             <li class="flex gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -126,13 +33,14 @@
                 </svg>
                 <a href="{{ route('usuario.home') }}">Main</a>
             </li>
-            @if(Auth::user()->rol == 'user')
+            @if (Auth::user()->rol == 'user')
                 @include('partials.sidebar')
-            @else @if(Auth::user()->rol == 'adminPrograma')
-                @include('partials.sidebarAdminPrograma')
             @else
-                @include('partials.sidebarAdmin')
-            @endif
+                @if (Auth::user()->rol == 'adminPrograma')
+                    @include('partials.sidebarAdminPrograma')
+                @else
+                    @include('partials.sidebarAdmin')
+                @endif
             @endif
         </ul>
         <div class="order-last">
@@ -149,35 +57,33 @@
                 </svg>
                 {{ __('Logout') }}
             </a>
-        
+
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
         </div>
-        
+
     </nav>
     <main class="w-full">
-        @if(session('success'))
-            <div id="success-notification" 
+        @if (session('success'))
+            <div id="success-notification"
                 class="absolute z-20 right-0 bg-green-100 border-l-4 border-green-500 text-green-700 p-4">
                 <p class="font-bold">Success</p>
                 <p>{{ session('success') }}</p>
             </div>
-
             <script>
-                // Esconde la notificación después de 3 segundos
                 setTimeout(() => {
                     const notification = document.getElementById('success-notification');
                     if (notification) {
                         notification.style.transition = 'opacity 0.5s ease';
-                        notification.style.opacity = '0'; // Desvanece la notificación
-                        setTimeout(() => notification.remove(), 500); // Elimina el elemento del DOM
+                        notification.style.opacity = '0';
+                        setTimeout(() => notification.remove(), 500);
                     }
-                }, 1000); // Cambia este valor para ajustar el tiempo
+                }, 1000);
             </script>
         @endif
-
         @yield('content')
     </main>
 </body>
+
 </html>
