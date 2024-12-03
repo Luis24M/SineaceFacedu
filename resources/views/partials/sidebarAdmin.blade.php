@@ -1,6 +1,4 @@
-{{-- usuario: nombre, apellidoPa, apellidoMa, correo |
- usuario.subcomite: estandares | 
- usuario.subcomite.estandar.criterio: evidencias --}}
+
 
 <section class="flex justify-center items-center">
     <img width="80px" src="{{ asset('images/logoUNT.png') }}" alt="">
@@ -29,7 +27,8 @@
     {{-- <h2 class="text-xl mt-6 text-center">Estandares</h2> --}}
     {{-- <hr class="w-full"> --}}
     <div class=mt-4>
-        <li><b>Programas</b></li>
+        <ul><b>Programas</b></ul>
+        
     </div>
 
 
