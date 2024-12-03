@@ -13,7 +13,7 @@ class ProgramaApiController extends Controller
     public function index()
     {
         //
-        $programas = Programa::all();
+        $programas = Programa::with('usuario')->get();
         return response()->json($programas);
     }
 

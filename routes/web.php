@@ -21,4 +21,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
   Route::put('/problematica/{problematica}', [ProblematicaController::class, 'update'])->name('problematica.update');
 });
 
+Route::middleware(['auth','role:admin'])->group(function (){
+  Route::post('/crearPrograma',[HomeController::class,'CrearPrograma'])->name('home.crearPrograma');
+});
+
 Auth::routes();
