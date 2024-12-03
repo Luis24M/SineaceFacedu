@@ -438,6 +438,8 @@ class HomeController extends Controller
             ],
             'adminPrograma'=>new ObjectId($coordinador->_id)
         ]);
+
+        return $this->admin();
     }
 
 }

@@ -13,4 +13,9 @@ class Programa extends Model
         'adminPrograma',
         'subcomites',
     ];
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'adminPrograma', '_id');
+    }
 }
