@@ -21,20 +21,20 @@
             <path d="M15 12h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1" />
             <path d="M15 4h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1" />
         </svg>
-        <a href="{{ route('usuario.home') }}">Main</a>
+        <a href="{{ route('usuario.home') }}"><b>Main</b></a>
     </li>
-    {{-- mostrar estandares atraves de subcommittee, subcommittee solo es el nombre tendria que buscarse los estandares en los documents de Subcomite --}}
-    {{-- <h2 class="text-xl mt-6 text-center">Estandares</h2> --}}
-    {{-- <hr class="w-full"> --}}
     <div class=mt-4>
-        <ul><b>Programas</b></ul>
+        <ul class="text-xl"><b>Programas</b></ul>
+        @if(count($programas)>0)
+            @foreach($programas as $programa)
+                <li class="py-1 pl-3"><b>{{$programa->nombre}}</b></li>
+            @endforeach 
+        @endif
         
     </div>
 
-
-</ul>
-<div class="order-last">
-    <a class="dropdown-item flex hover:font-bold" href="{{ route('logout') }}"
+<div class="order-last py-1">
+    <a class="dropdown-item flex hover:font-bold text-xl" href="{{ route('logout') }}"
         onclick="event.preventDefault();
                      document.getElementById('logout-form').submit();">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -45,10 +45,13 @@
             <path d="M9 12h12l-3 -3" />
             <path d="M18 15l3 -3" />
         </svg>
-        {{ __('Logout') }}
+        <b>{{ __('Logout') }}</b>
     </a>
 
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
         @csrf
     </form>
 </div>
+
+
+</ul>

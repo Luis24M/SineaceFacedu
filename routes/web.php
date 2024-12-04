@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EstandarController;
 use App\Http\Controllers\ProblematicaController;
+use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\PDFController;
 
 Route::get('/', [HomeController::class, 'redirect'])->name('usuario.home')->middleware('auth');

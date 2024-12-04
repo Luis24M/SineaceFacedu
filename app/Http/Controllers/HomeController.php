@@ -64,6 +64,23 @@ class HomeController extends Controller
 
     /*CREAR USUARIO Y PROGRAMA Y SUBCOMITES y ESTANDARES*/
 
+
+    public function sideBarAdmin()
+    {
+        $programas = Programa::all();
+        return view('partials.sidebarAdmin')->with('programas',$programas);
+    }
+
+    public function sideBarAdminPrograma()
+    {
+        #$programa = Programa::where('nombre',Auth::user->programa)->first();
+        $programa=[
+            'nombre'=>'programa1',
+            'subcomites'=>[]
+        ];
+        return view('partials.sidebarAdminPrograma')->with('programa',$programa);
+    }
+
     /*ESTANDARES DE PROGRAMAS */
     public function CrearPrograma(Request $request){
 

@@ -29,6 +29,9 @@
     <div class=mt-4>
         <ul>
             <li><b>Subcomites</b></li>
+            @if(count($programa->subcomites)>0)
+            <p>Si hay subcomites</p>
+            @endif
             <li><b>Usuarios</b></li>
         </ul>
 
