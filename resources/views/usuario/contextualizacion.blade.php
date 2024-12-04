@@ -1,5 +1,4 @@
 @extends('layouts.usuario')
-@vite('resources/js/usuario.js')
 @section('content')
     <section class="flex ml-[350px] min-h-screen">
         @include('partials.contextBar')
