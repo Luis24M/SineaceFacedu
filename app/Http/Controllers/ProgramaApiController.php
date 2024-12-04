@@ -13,8 +13,18 @@ class ProgramaApiController extends Controller
     public function index()
     {
         //
-        $programas = Programa::with('usuario')->get();
-        return response()->json($programas);
+        #$programas = Programa::with('usuario')->get();
+        #return response()->json($programas);
+        $programas = Programa::where();
+        $subcomites=[];
+        foreach($programas as $programa){
+            foreach($programas->subcomites as $subcomite){
+                $obSubcomite = Subcomite::where('id',$subcomite->id);
+                array_push($subcomites,$obSubcomite);
+            }
+            
+        }
+        return response()->json($subcomites);
     }
 
     /**

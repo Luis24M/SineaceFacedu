@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserApiController;
 use App\Http\Controllers\EvidenciasApiController;
 use App\Http\Controllers\CriterioApiController;
+use App\Http\Controllers\InfoEstandarApiController;
 use App\Http\Controllers\EstandarApiController ;
 use App\Http\Controllers\ContextualizacionApiController;
 use App\Http\Controllers\SubcomiteApiController;
@@ -37,9 +38,13 @@ Route::get('criterio',[CriterioApiController::class,'test'])->name('test');
 Route::get('estandares',[EstandarApiController::class,'index'])->name('estandares');
 Route::post('estandar',[EstandarApiController::class,'create'])->name('estandar');
 
+/*RUTA INFOESTANDAR */
+Route::get('infoestandares', [InfoEstandarApiController::class, 'index'])->name('infoestandares.index');
+Route::post('infoestandar', [InfoEstandarApiController::class, 'create'])->name('infoestandares.create');
+
 /*RUTA ESTANDARES */
-Route::get('contextualizaciones',[ContextualizacionApiController::class,'index'])->name('contextualizaciones');
-#Route::post('estandar',[EstandarApiController::class,'create'])->name('estandar');
+Route::get('estandares',[EstandarApiController::class,'index'])->name('estandares');
+Route::post('estandar',[EstandarApiController::class,'create'])->name('estandar');
 
 /*RUTA SUBCOMITES */
 Route::get('subcomites',[SubcomiteApiController::class,'index'])->name('subcomites');

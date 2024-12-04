@@ -104,7 +104,7 @@
     <nav class="col-span-2 w-[350px] px-10 py-5 bg-[#D5D6E7] fixed h-screen flex flex-col items-center">
         @include('partials.sidebarAdmin')
     </nav>
-    <main class="w-full ml-[350px] col-span-4 h-full flex flex-col justify-center items-center ">
+    <main class="w-full h-full flex flex-col justify-center items-center mt-5 mb-5">
         @yield('content')
     </main>
 </body>

@@ -10,10 +10,7 @@ class Estandar extends Model
     protected $connection = 'mongodb';
     protected $table = 'estandares';
     protected $fillable = [
-        'titulo',
-        'factor',
-        'dimension',
-        'descripcion',
+        'infoestandar',
         'contextualizacion',
         'criterios',
     ];
