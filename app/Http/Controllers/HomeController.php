@@ -51,27 +51,27 @@ class HomeController extends Controller
     }
 
     public function adminPrograma()
-{
-    // Use a more granular cache key
-    $cacheKey = 'programa_' . Auth::user()->programa . '_' . Auth::id();
+    {
+        $cacheKey = 'programa_' . Auth::user()->programa . '_' . Auth::id();
+        
+        $programa = Cache::remember($cacheKey, 60 * 24, function () {
+            return Programa::with([
+                'subcomites' => function($query) {
+                    $query->with(['estandares' => function($q) {
+                        // Asegúrate de cargar la relación infoEstandar
+                        $q->with('infoEstandar')
+                          ->whereHas('infoEstandar'); // Solo estandares con infoEstandar
+                    }]);
+                }
+            ])
+            ->where('nombre', Auth::user()->programa)
+            ->first();
+        });
     
-    $programa = Cache::remember($cacheKey, 60 * 24, function () {
-        return Programa::with([
-            'subcomites' => function($query) {
-                // Only load necessary relations
-                $query->with(['estandares' => function($q) {
-                    $q->with('infoEstandar:indice'); // Select only the needed column
-                }]);
-            }
-        ])
-        ->where('nombre', Auth::user()->programa)
-        ->first();
-    });
-
-    $subcomites = $programa->subcomites;
-
-    return view('adminPrograma.home', compact('programa', 'subcomites'));
-}
+        $subcomites = $programa->subcomites;
+    
+        return view('adminPrograma.home', compact('programa', 'subcomites'));
+    }
 
 
     public function admin()
@@ -108,8 +108,8 @@ class HomeController extends Controller
             $estandar=Estandar::create([
                 'contextualizacion',
                 'criterios'=>[],
+                'info_estandar_id'=>$infoestandar->_id
             ]);
-            $estandar->infoEstandar()->save($infoestandar);
             array_push($estandares,$estandar);
         }
         /*COORDINADOR DE PROGRAMA */
@@ -125,83 +125,24 @@ class HomeController extends Controller
             'programa'=>$request->programa,
         ]);
 
-        /*SUBCOMITES DE PROGRAMA */
-        $subcomite1=Subcomite::Create([
-            'nombre'=>'Gestion Misional Del Programa',
-            'usuarios'=>[],
-        ]);
-        $subcomite1->estandares()->attach($estandares[0]);
-        $subcomite1->estandares()->attach($estandares[2]);
-        $subcomite1->estandares()->attach($estandares[4]);
-        $subcomite1->estandares()->attach($estandares[5]);
-        $subcomite1->estandares()->attach($estandares[6]);
-        $subcomite1->estandares()->attach($estandares[7]);
-        $subcomite1->estandares()->attach($estandares[8]);
-        $subcomite1->estandares()->attach($estandares[9]);
-        $subcomite1->estandares()->attach($estandares[10]);
-        $subcomite1->estandares()->attach($estandares[17]);
-        $subcomite1->estandares()->attach($estandares[32]);
+        $subcomites = collect([
+            ['nombre' => 'Gestión Misional del Programa', 'estandares' => [0, 2, 4, 5, 6, 7, 8, 9, 10, 17, 32]],
+            ['nombre' => 'Investigación y Responsabilidad Social Universitaria', 'estandares' => [11, 21, 22, 23, 24, 25]],
+            ['nombre' => 'Seguimiento al Egresado', 'estandares' => [1, 32, 33]],
+            ['nombre' => 'Seguimiento al Estudiante y Movilidad', 'estandares' => [12, 18, 19]],
+            ['nombre' => 'Desarrollo Docente, Administrativo y Actividades Extracurriculares', 'estandares' => [13, 14, 15, 16, 20, 26]],
+            ['nombre' => 'Prácticas Pre Profesionales, Recursos, Equipamiento e Infraestructura', 'estandares' => [3, 27, 28, 29, 30, 31]],
+        ])->map(function ($data) use ($estandares) {
+            $subcomite = Subcomite::create(['nombre' => $data['nombre'], 'usuarios' => []]);
+            $subcomite->estandares()->sync(array_map(fn($index) => $estandares[$index]->id, $data['estandares']));
+            return $subcomite;
+        });
 
-        $subcomite2=Subcomite::Create([
-            'nombre'=>'Investigacion y Responsabilidad Social Universitaria',
-            'usuarios'=>[],
+        $programa = Programa::create([
+            'nombre' => $request->programa,
+            'adminPrograma' => $coordinador->id,
         ]);
-        $subcomite2->estandares()->attach($estandares[11]);
-        $subcomite2->estandares()->attach($estandares[21]);
-        $subcomite2->estandares()->attach($estandares[22]);
-        $subcomite2->estandares()->attach($estandares[23]);
-        $subcomite2->estandares()->attach($estandares[24]);
-        $subcomite2->estandares()->attach($estandares[25]);
-
-        $subcomite3=Subcomite::Create([
-            'nombre'=>'Seguimiento al Egresado',
-            'usuarios'=>[]
-        ]);
-        $subcomite3->estandares()->attach($estandares[1]);
-        $subcomite3->estandares()->attach($estandares[32]);
-        $subcomite3->estandares()->attach($estandares[33]);
-
-        $subcomite4=Subcomite::Create([
-            'nombre'=>'Seguimiento al Estudiante y Movilidad',
-            'usuarios'=>[],
-        ]);
-        $subcomite4->estandares()->attach($estandares[12]);
-        $subcomite4->estandares()->attach($estandares[18]);
-        $subcomite4->estandares()->attach($estandares[19]);
-
-        $subcomite5=Subcomite::Create([
-            'nombre'=>'Desarrollo Docente, Administrativo y Actividades Extracurriculares',
-            'usuarios'=>[],
-        ]);
-        $subcomite5->estandares()->attach($estandares[13]);
-        $subcomite5->estandares()->attach($estandares[14]);
-        $subcomite5->estandares()->attach($estandares[15]);
-        $subcomite5->estandares()->attach($estandares[16]);
-        $subcomite5->estandares()->attach($estandares[20]);
-        $subcomite5->estandares()->attach($estandares[26]);
-
-
-        $subcomite6=Subcomite::Create([
-            'nombre'=>'Practicas Pre Profesionales, Recursos, Equipamiento e Infraestructura',
-            'usuarios'=>[],
-        ]);
-        $subcomite6->estandares()->attach($estandares[3]);
-        $subcomite6->estandares()->attach($estandares[27]);
-        $subcomite6->estandares()->attach($estandares[28]);
-        $subcomite6->estandares()->attach($estandares[29]);
-        $subcomite6->estandares()->attach($estandares[30]);
-        $subcomite6->estandares()->attach($estandares[31]);
-
-        $programa=Programa::Create([
-            'nombre'=>$request->programa,
-            'adminPrograma'=>new ObjectId($coordinador->_id)
-        ]);
-        $programa->subcomites()->attach($subcomite1);
-        $programa->subcomites()->attach($subcomite2);
-        $programa->subcomites()->attach($subcomite3);
-        $programa->subcomites()->attach($subcomite4);
-        $programa->subcomites()->attach($subcomite5);
-        $programa->subcomites()->attach($subcomite6);
+        $programa->subcomites()->sync($subcomites->pluck('id')->toArray());
 
         return redirect()->route('usuario.home');
     }

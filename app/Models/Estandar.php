@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use MongoDB\Laravel\Eloquent\Model;
-use MongoDB\Laravel\Relations\HasOne;
+use MongoDB\Laravel\Relations\BelongsTo;
+
 class Estandar extends Model
 {
     protected $connection = 'mongodb';
@@ -11,10 +12,11 @@ class Estandar extends Model
     protected $fillable = [
         'contextualizacion',
         'criterios',
+        'info_estandar_id'  // Asegúrate de tener este campo
     ];
 
-    public function infoEstandar() : HasOne
+    public function infoEstandar(): BelongsTo
     {
-        return $this->hasOne(InfoEstandar::class);
+        return $this->belongsTo(InfoEstandar::class);
     }
 }
