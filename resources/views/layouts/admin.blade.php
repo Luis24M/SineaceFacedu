@@ -101,11 +101,15 @@
     <title>FACEDU - SINEACE</title>
 </head>
 <body class="h-full grid grid-cols-6">
-    <nav class="col-span-2 w-[350px] px-10 py-5 bg-[#D5D6E7] fixed h-screen flex flex-col items-center">
+    <!-- Barra lateral -->
+    <nav class="px-10 py-5 bg-[#D5D6E7] h-screen w-1/6 col-span-2 flex fixed flex-col items-center">
         @include('partials.sidebarAdmin')
     </nav>
-    <main class="w-full h-full flex flex-col justify-center items-center mt-5 mb-5">
+
+    <!-- Contenido principal -->
+    <main class="col-start-2 col-span-5 ml-auto w-full flex flex-col justify-center items-center">
         @yield('content')
     </main>
 </body>
+
 </html>

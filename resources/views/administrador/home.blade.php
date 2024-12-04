@@ -1,20 +1,20 @@
 @extends('layouts.admin')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 @section('content')
-    <div class="ml-[350px] h-1/4">
+    <div class="h-1/4">
         <h1 class="text-center text-6xl font-bold">Mis programas</h1>
     </div>
     
     @if(count($programas) > 0)
-        <div class="ml-[350px] h-1/2  p-4 w-3/4 mt-5">
+        <div class="h-1/2 p-4">
             <!-- Contenedor principal en columnas -->
             <div class="flex flex-col gap-4">
                 <!-- Contenedor de items en una fila con gap -->
                 <div class="flex flex-wrap gap-4">
                     @foreach($programas as $programa)
-                        <div class="w-[30%] p-6 bg-white border border-gray-200 rounded-lg shadow">
+                        <div class=" p-6 bg-white border border-gray-200 rounded-lg shadow">
                             <a href="#">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ $programa->nombre }}, </h5>
+                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ $programa->nombre }} </h5>
                             </a>
                             <p class="mb-3 font-normal text-gray-700">Encargado: {{ $programa->usuario->name }}, {{$programa->usuario->lastname}}</p>
                             <p class="mb-3 font-normal text-gray-700">Dni: {{$programa->usuario->dni}} </p>
@@ -37,7 +37,7 @@
             </div>
         </div>
     @else
-        <div class="ml-[350px] bg-orange-100 h-1/2 border-2 border-orange-500 text-orange-700 p-4 w-3/4 mt-5 flex flex-col justify-center items-center">
+        <div class="bg-orange-100 h-1/2 border-2 border-orange-500 text-orange-700 p-4 mt-5 flex flex-col justify-center items-center">
             <h2 class="text-3xl">No hay programas actualmente</h2>
             <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-4">
                 Agregar
@@ -99,5 +99,12 @@
             </div>
         </div>
     </div>
-
+    <script>
+        document.getElementById('programaForm').addEventListener('submit', function (event) {
+            const submitButton = event.target.querySelector('button[type="submit"]');
+            submitButton.disabled = true; // Deshabilita el botón
+            submitButton.textContent = 'Procesando...'; // Opcional: Cambia el texto del botón
+        });
+    </script>
+    
 @endsection
