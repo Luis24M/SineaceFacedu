@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Estandar;
 use App\Models\Criterio;
+use App\Models\InfoEstandar;
+use MongoDB\BSON\ObjectId;
 use Illuminate\Http\Request;
 
 class EstandarApiController extends Controller
@@ -24,22 +26,18 @@ class EstandarApiController extends Controller
     public function create()
     {
         // Obtener los criterios
-        $criterio1 = Criterio::where('nombre', 'criterio1')->first();
-        $criterio2 = Criterio::where('nombre', 'criterio2')->first();
-    
-        // Asegurarte de convertir los IDs a ObjectId si es necesario
-        $Estandar = Estandar::create([
-            'titulo' => 'Estandar1',
-            'factor' => 'factor1',
-            'dimension' => 'dimension1',
-            'descripcion' => 'Estandar1',
-            'criterios' => [
-                new \MongoDB\BSON\ObjectId($criterio1->id),
-                new \MongoDB\BSON\ObjectId($criterio2->id)
-            ]
-        ]);
-    
-        return response()->json($Estandar);
+        $infoestandares = InfoEstandar::all();
+        $estandares=[];
+        foreach($infoestandares as $infoestandar){
+            $estandar=Estandar::create([
+                'infoestandar'=>new ObjectId($infoestandar->id),
+                'contextualizacion',
+                'criterios'=>[],
+            ]);
+             array_push($estandares,$estandar);
+        }
+
+        return response()->json($infoestandares);
     }
     
 

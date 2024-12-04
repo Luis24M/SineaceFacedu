@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 @section('content')
-    <div class="h-1/4">
+    <div class="ml-[350px] h-1/4">
         <h1 class="text-center text-6xl font-bold">Mis programas</h1>
     </div>
     
     @if(count($programas) > 0)
-        <div class="ml-[350px] h-1/2 border-2 p-4 w-3/4 mt-5">
+        <div class="ml-[350px] h-1/2  p-4 w-3/4 mt-5">
             <!-- Contenedor principal en columnas -->
             <div class="flex flex-col gap-4">
                 <!-- Contenedor de items en una fila con gap -->
@@ -14,9 +14,11 @@
                     @foreach($programas as $programa)
                         <div class="w-[30%] p-6 bg-white border border-gray-200 rounded-lg shadow">
                             <a href="#">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ $programa->nombre }}</h5>
+                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ $programa->nombre }}, </h5>
                             </a>
-                            <p class="mb-3 font-normal text-gray-700">Encargado: {{ $programa->usuario->name }}</p>
+                            <p class="mb-3 font-normal text-gray-700">Encargado: {{ $programa->usuario->name }}, {{$programa->usuario->lastname}}</p>
+                            <p class="mb-3 font-normal text-gray-700">Dni: {{$programa->usuario->dni}} </p>
+                            <p class="mb-3 font-normal text-gray-700">Correo: {{$programa->usuario->email}}</p>
                             <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
                                 Ver
                                 <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
