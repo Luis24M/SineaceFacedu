@@ -69,28 +69,28 @@
                         <label class="block mb-2 text-sm font-medium text-gray-900 mb-5 text-xl"><b>Programa</b></label>
                         <div class="col-span-2">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nombre del Programa</label>
-                            <input type="text" name="programa" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Type product name" required="">
+                            <input type="text" name="programa" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Type product name" >
                         </div>
                         <label class="block mb-2 text-sm font-medium text-gray-900 mb-5 mt-5 text-xl"><b>Representante</b></label>
                         <div class="flex flex-row space-x-3">
                             <div>
                                 <label class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>
-                                <input type="text" name="nombre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required="">
+                                <input type="text" name="nombre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" >
                             </div>
                             <div>
                                 <label class="block mb-2 text-sm font-medium text-gray-900">Apellido</label>
-                                <input type="text" name="apellido" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required="">
+                                <input type="text" name="apellido" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" >
                             </div>
                         </div>
                         <div>
                             <label class="block mb-2 text-sm font-medium text-gray-900">DNI</label>
-                            <input type="text" name="dni" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required="">
+                            <input type="text" name="dni" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" >
                         </div>
                         <div class="w-full mb-5 mt-5">
                             <label class="block mb-2 text-sm font-medium text-gray-900">Correo Electrónico</label>
                             <input type="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required="">
                         </div>
-                        <button type="submit" class="w-full text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        <button type="submit" onclick="debug()" class="w-3/4 text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                             <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                             Agregar nuevo programa
                         </button>
@@ -99,5 +99,12 @@
             </div>
         </div>
     </div>
-
+<script>
+    function debug(){
+        const programForm = document.getElementById('programaForm');
+        programData = new FormData(programForm);
+        programObj = Object.fromEntries(programData.entries())
+        console.log(programObj)
+    }
+</script>
 @endsection
