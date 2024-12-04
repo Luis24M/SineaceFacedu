@@ -23,22 +23,15 @@
         </svg>
         <a href="{{ route('usuario.home') }}">Main</a>
     </li>
-    {{-- mostrar estandares atraves de subcommittee, subcommittee solo es el nombre tendria que buscarse los estandares en los documents de Subcomite --}}
-    {{-- <h2 class="text-xl mt-6 text-center">Estandares</h2> --}}
-    {{-- <hr class="w-full"> --}}
     <div class=mt-4>
         <ul>
             <li><b>Subcomites</b></li>
-            @if(count($programa->subcomites)>0)
-            <p>Si hay subcomites</p>
-            @endif
+            @foreach ($programa->subcomites as $subcomite)
+                <li><a href="">{{ $subcomite->nombre }}</a></li>
+            @endforeach
             <li><b>Usuarios</b></li>
         </ul>
-
-        
     </div>
-
-
 </ul>
 <div class="order-last">
     <a class="dropdown-item flex hover:font-bold" href="{{ route('logout') }}"

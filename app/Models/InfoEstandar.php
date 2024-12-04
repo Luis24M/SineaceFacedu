@@ -15,5 +15,7 @@ class InfoEstandar extends Model
         'descripcion',
         'indice'
     ];
+
+    
 }
 
