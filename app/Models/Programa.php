@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use MongoDB\Laravel\Eloquent\Model;
+use MongoDB\Laravel\Relations\BelongsToMany;
 
 class Programa extends Model
 {
@@ -17,5 +18,10 @@ class Programa extends Model
     public function usuario()
     {
         return $this->belongsTo(User::class, 'adminPrograma', '_id');
+    }
+
+    public function subcomites(): BelongsToMany
+    {
+        return $this->belongsToMany(Subcomite::class);
     }
 }

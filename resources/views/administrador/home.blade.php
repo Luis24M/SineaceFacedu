@@ -1,36 +1,38 @@
 @extends('layouts.admin')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 @section('content')
-    <div class="h-1/4">
-        <h1 class="text-center text-6xl font-bold">Mis programas</h1>
+    <div class="pl-4 my-4">
+        <h1 class="text-5xl text-neutral-600 ">Buen día <strong>{{ Auth::user()->name }}</strong></h1>
     </div>
     
     @if(count($programas) > 0)
         <div class="h-1/2 p-4">
             <!-- Contenedor principal en columnas -->
-            <div class="flex flex-col gap-4">
+            <div class="flex flex-col bg-neutral-100 drop-shadow-md p-4  rounded-xl gap-4">
+                <h2 class="text-3xl font-medium">Programas</h2>
                 <!-- Contenedor de items en una fila con gap -->
-                <div class="flex flex-wrap gap-4">
+                <div class="flex flex-wrap justify-around gap-4">
                     @foreach($programas as $programa)
-                        <div class=" p-6 bg-white border border-gray-200 rounded-lg shadow">
+                        <div class="w-1/5 p-6 bg-white border border-gray-200 rounded-lg shadow">
                             <a href="#">
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ $programa->nombre }} </h5>
                             </a>
-                            <p class="mb-3 font-normal text-gray-700">Encargado: {{ $programa->usuario->name }}, {{$programa->usuario->lastname}}</p>
-                            <p class="mb-3 font-normal text-gray-700">Dni: {{$programa->usuario->dni}} </p>
-                            <p class="mb-3 font-normal text-gray-700">Correo: {{$programa->usuario->email}}</p>
-                            <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                            <p class="mb-3 font-normal text-gray-700"><span class="font-semibold">Encargado:</span> {{ $programa->usuario->name }}, {{$programa->usuario->lastname}}</p>
+                            <p class="mb-3 font-normal text-gray-700"><span class="font-semibold">Dni:</span> {{$programa->usuario->dni}} </p>
+                            <p class="mb-3 font-normal text-gray-700"><span class="font-semibold">Correo:</span> {{$programa->usuario->email}}</p>
+                            <a href="#" class="inline-flex items-center justify-between px-3 py-2 text-sm font-medium text-white bg-[#5a86ff] rounded-lg hover:bg-[#599ee7] hover:w-full transition-all ease-in-out duration-500 focus:ring-4 focus:outline-none focus:ring-blue-300">
                                 Ver
                                 <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                                 </svg>
                             </a>
+                            
                         </div>
                     @endforeach
                 </div>
                 <!-- Botón Agregar al final -->
                 <div class="flex justify-center mt-6">
-                    <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                    <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                         Agregar
                     </button>
                 </div>
@@ -66,12 +68,12 @@
                 <form class="p-4 md:p-5" id="programaForm" action="{{ route('home.crearPrograma') }}" method="POST">
                     @csrf
                     <div class="flex flex-col">
-                        <label class="block mb-2 text-sm font-medium text-gray-900 mb-5 text-xl"><b>Programa</b></label>
+                        <label class="block font-medium text-gray-900 mb-5 text-xl"><b>Programa</b></label>
                         <div class="col-span-2">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nombre del Programa</label>
-                            <input type="text" name="programa" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Type product name" >
+                            <input type="text" name="programa" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" >
                         </div>
-                        <label class="block mb-2 text-sm font-medium text-gray-900 mb-5 mt-5 text-xl"><b>Representante</b></label>
+                        <label class="block font-medium text-gray-900 mb-5 mt-5 text-xl"><b>Representante</b></label>
                         <div class="flex flex-row space-x-3">
                             <div>
                                 <label class="block mb-2 text-sm font-medium text-gray-900">Nombre</label>

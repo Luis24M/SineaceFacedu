@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
+    @vite('resources/css/app.css')
     <style>
         @media print {
             body * {
@@ -22,7 +19,6 @@
                 top: 0;
             }
         }
-
         .page {
             font-family: 'Times New Roman', Times, serif;
             background: white;
@@ -104,12 +100,16 @@
     </style>
     <title>FACEDU - SINEACE</title>
 </head>
-<body class="flex h-full">
-    <nav class="w-[350px] px-10 py-5 bg-[#D5D6E7] fixed h-screen flex flex-col items-center">
+<body class="h-full grid grid-cols-12">
+    <!-- Barra lateral -->
+    <nav class="px-10 py-5 bg-[#D5D6E7] h-screen w-3/12 col-start-1 flex fixed flex-col items-center">
         @include('partials.sidebarAdminPrograma')
     </nav>
-    <main class="w-full h-full flex flex-col justify-center items-center ">
+
+    <!-- Contenido principal -->
+    <main class="col-start-4 col-span-9 ml-auto w-full flex flex-col p-5">
         @yield('content')
     </main>
 </body>
+
 </html>
