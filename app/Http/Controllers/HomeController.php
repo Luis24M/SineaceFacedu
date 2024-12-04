@@ -51,17 +51,27 @@ class HomeController extends Controller
     }
 
     public function adminPrograma()
-    {
-        // Cache con carga anticipada de relaciones
-        $programa = Cache::remember('programa_' . Auth::user()->programa, 60, function () {
-            return Programa::with(['subcomites.estandares'])
-                ->where('nombre', Auth::user()->programa)
-                ->first();
-        });
+{
+    // Use a more granular cache key
+    $cacheKey = 'programa_' . Auth::user()->programa . '_' . Auth::id();
+    
+    $programa = Cache::remember($cacheKey, 60 * 24, function () {
+        return Programa::with([
+            'subcomites' => function($query) {
+                // Only load necessary relations
+                $query->with(['estandares' => function($q) {
+                    $q->with('infoEstandar:indice'); // Select only the needed column
+                }]);
+            }
+        ])
+        ->where('nombre', Auth::user()->programa)
+        ->first();
+    });
 
-        // Retornar la vista con el programa
-        return view('adminPrograma.home', compact('programa'));
-    }
+    $subcomites = $programa->subcomites;
+
+    return view('adminPrograma.home', compact('programa', 'subcomites'));
+}
 
 
     public function admin()
