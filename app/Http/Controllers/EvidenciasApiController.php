@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\JsonResponse;
-use App\Models\Image;
+use App\Models\Evidencia;
 use Google\Client as Google_Client;
 use Google\Service\Drive as Google_Service_Drive;
 use Google\Service\Drive\DriveFile as Google_Service_Drive_DriveFile;
 use Illuminate\Support\Facades\Log;
+
 class EvidenciasApiController extends Controller
 {
 
@@ -63,11 +64,11 @@ class EvidenciasApiController extends Controller
             $fileId = $result->id;
             $driveLink = "https://drive.google.com/uc?export=view&id=" . $fileId;
             
-            $image = Image::create([
+            $image = Evidencia::create([
                 'name' => $result->name,
-                'file_id' => $fileId,
-                'drive_link' => $driveLink,
-                'mime_type' => $file->getMimeType()
+                #'file_id' => $fileId,
+                'enlace' => $driveLink,
+                #'mime_type' => $file->getMimeType()
             ]);
 
             return response()->json([
@@ -75,7 +76,7 @@ class EvidenciasApiController extends Controller
                 'file' => [
                     'id' => $image->id,
                     'name' => $image->name,
-                    'drive_link' => $image->drive_link
+                    'enlace' => $image->drive_link
                 ]
             ]);
             
@@ -86,8 +87,6 @@ class EvidenciasApiController extends Controller
             ], 500);
         }
     }
-
-
 
     public function index()
     {
