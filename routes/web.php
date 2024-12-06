@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EstandarController;
 use App\Http\Controllers\ProblematicaController;
 use App\Http\Controllers\ProgramaController;
+use App\Http\Controllers\EvidenciasApiController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SubcomiteController;
@@ -37,3 +38,7 @@ Route::middleware(['auth', 'role:adminPrograma'])->group(function (){
 });
 
 Auth::routes();
+route::get('/test',[EvidenciasApiController::class,'test'])->name('token');
+Route::post('/images', [EvidenciasApiController::class, 'store'])->name('images.store');
+
+Route::resource('files',EvidenciasApiController::class);

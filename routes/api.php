@@ -45,6 +45,10 @@ Route::post('infoestandar', [InfoEstandarApiController::class, 'create'])->name(
 /*RUTA ESTANDARES */
 Route::get('estandares',[EstandarApiController::class,'index'])->name('estandares');
 Route::post('estandar',[EstandarApiController::class,'create'])->name('estandar');
+Route::post('testestandar',[EstandarApiController::class,'test'])->name('testestandar');
+#Route::get('estandar/{estandar}',[EstandarApiController::class,'store'])->name('estandareEspecifico');
+Route::get('estandar/{id}', [EstandarApiController::class, 'show'])->name('estandareEspecifico');
+
 
 /*RUTA SUBCOMITES */
 Route::get('subcomites',[SubcomiteApiController::class,'index'])->name('subcomites');

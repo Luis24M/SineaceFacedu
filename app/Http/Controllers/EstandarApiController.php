@@ -40,21 +40,21 @@ class EstandarApiController extends Controller
         return response()->json($infoestandares);
     }
     
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function test(){
+        $estandar = Estandar::create([
+            'contectualziacion',
+            'criterios'=>[]
+        ]);
+        return response()->json($estandar);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Estandar $estandar)
+    public function show($id)
     {
-        //
+        $estan = Estandar::where('_id',$id)->first();
+        return response()->json($estan);
     }
 
     /**
