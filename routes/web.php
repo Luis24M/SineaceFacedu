@@ -7,6 +7,8 @@ use App\Http\Controllers\ProblematicaController;
 use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\EvidenciasApiController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\SubcomiteController;
 
 Route::get('/', [HomeController::class, 'redirect'])->name('usuario.home')->middleware('auth');
 Route::get('generate-pdf', [PDFController::class, 'generatePDF'])->name('pdf');
@@ -27,8 +29,15 @@ Route::middleware(['auth','role:admin'])->group(function (){
   Route::post('/crearPrograma',[HomeController::class,'CrearPrograma'])->name('home.crearPrograma');
 });
 
-Auth::routes();
+Route::middleware(['auth', 'role:adminPrograma'])->group(function (){
+  Route::get('/subcomite/{subcomite}', [SubcomiteController::class, 'show'])->name('subcomite.show');
+  Route::get('/usuarios', [HomeController::class, 'usuarios'])->name('usuarios');
+  Route::post('/usuarios', [HomeController::class, 'crearUsuario'])->name('usuarios.crear');
+  Route::put('/usuarios/{usuario}', [UserController::class, 'update'])->name('usuarios.update');
+  Route::delete('/usuario/{usuario}', [UserController::class, 'destroy'])->name('usuario.destroy');
+});
 
+Auth::routes();
 route::get('/test',[EvidenciasApiController::class,'test'])->name('token');
 Route::post('/images', [EvidenciasApiController::class, 'store'])->name('images.store');
 
