@@ -69,8 +69,8 @@ class HomeController extends Controller
         });
     
         $subcomites = $programa->subcomites;
-    
-        return view('adminPrograma.home', compact('programa', 'subcomites'));
+        $usuarios = $subcomites->pluck('usuarios')->flatten(); // Todos los usuarios de los subcomites del programa, pluck para obtener solo los usuarios de cada subcomite y flatten para aplanar el array de arrays
+        return view('adminPrograma.home', compact('programa', 'subcomites', 'usuarios'));
     }
 
 
@@ -147,4 +147,28 @@ class HomeController extends Controller
         return redirect()->route('usuario.home');
     }
 
+    public function CrearUsuario(Request $request, Programa $programa){
+
+        $usuario = User::Create([
+            'name'=>$request->name,
+            'lastname'=>$request->lastname,
+            'email'=>$request->email,
+            'dni'=>$request->dni,
+            'password'=>$request->dni,
+            'rol'=>'user',
+            'programa'=>$request->programa,
+        ]);
+        $subcomite = Subcomite::where('id',$request->subcomite)->first();
+        $subcomite->usuarios()->attach($usuario->id);
+        $usuario->subcomite = $subcomite->nombre;
+        $usuario->save();
+        return redirect()->route('usuario.home');
+    }
+
+    public function usuarios()
+    {
+
+        $usuarios = User::all();
+        return view('adminPrograma.usuarios',compact('usuarios'));
+    }
 }

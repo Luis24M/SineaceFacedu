@@ -17,4 +17,8 @@ class Subcomite extends Model
         return $this->belongsToMany(Estandar::class); 
     }
 
+    public function usuarios(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class); 
+    }
 }
