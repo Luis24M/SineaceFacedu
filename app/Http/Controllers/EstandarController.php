@@ -14,7 +14,7 @@ class EstandarController extends Controller
 {
     private function getSubcomite()
     {
-        return Subcomite::where('nombre', Auth::user()->subcomite)->first();
+        return Subcomite::whereIn('id', Auth::user()->subcomite_ids)->first();
     }
 
     private function getNarrativa($id)
@@ -31,12 +31,11 @@ class EstandarController extends Controller
     public function index(Estandar $estandar)
     {   
         $subcomite = $this->getSubcomite();
-        $estandares = Estandar::whereIn('id', $subcomite->estandares)->get();
         $contextualizacion = $this->getContextualizacion($estandar->contextualizacion);
         $narrativa = $this->getNarrativa($contextualizacion->narrativa);
         $problematicas = Problematica::whereIn('id', $narrativa->problematicas)->get();
 
-        return view('usuario.contextualizacion', compact('subcomite', 'estandares', 'estandar', 'contextualizacion', 'narrativa', 'problematicas'));
+        return view('usuario.contextualizacion', compact('subcomite', 'estandar', 'contextualizacion', 'narrativa', 'problematicas'));
     }
 
     public function actualizarNarrativaPrograma(Estandar $estandar, Request $request)

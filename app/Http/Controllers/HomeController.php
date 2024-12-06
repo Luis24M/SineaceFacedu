@@ -45,9 +45,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $subcomite = Subcomite::where('nombre', Auth::user()->subcomite)->first();
-        $estandares = Estandar::whereIn('id', $subcomite->estandares)->get();
-        return view('usuario.home', compact('subcomite', 'estandares'));
+        $subcomite = Subcomite::whereIn('id', Auth::user()->subcomite_ids)->first();
+        return view('usuario.home', compact('subcomite'));
     }
 
     public function adminPrograma()

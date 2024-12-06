@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use MongoDB\Laravel\Eloquent\Model;
+use MongoDB\Laravel\Relations\HasMany;
 
 class Narrativa extends Model
 {
@@ -11,7 +12,11 @@ class Narrativa extends Model
         'misionUNT',
         'misionFacultad',
         'misionPrograma',
-        'problematicas',
     ];
+
+    public function problematicas(): HasMany
+    {
+        return $this->hasMany(Problematica::class);
+    }
 
 }
