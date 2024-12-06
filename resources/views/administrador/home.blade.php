@@ -72,6 +72,17 @@
                         <div class="col-span-2">
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Nombre del Programa</label>
                             <input type="text" name="programa" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" >
+                            @error('programa')
+                            <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50" role="alert">
+                              <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                              </svg>
+                              <span class="sr-only">Info</span>
+                              <div>
+                                <span class="font-medium">Alerta!</span> El programa ya existe.
+                              </div>
+                            </div>
+                            @enderror
                         </div>
                         <label class="block font-medium text-gray-900 mb-5 mt-5 text-xl"><b>Representante</b></label>
                         <div class="flex flex-row space-x-3">
@@ -87,6 +98,17 @@
                         <div>
                             <label class="block mb-2 text-sm font-medium text-gray-900">DNI</label>
                             <input type="text" name="dni" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" >
+                            @error('dni')
+                            <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50" role="alert">
+                              <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                              </svg>
+                              <span class="sr-only">Info</span>
+                              <div>
+                                <span class="font-medium">Alerta!</span> Este DNI ya esta registrado.
+                              </div>
+                            </div>
+                            @enderror
                         </div>
                         <div class="w-full mb-5 mt-5">
                             <label class="block mb-2 text-sm font-medium text-gray-900">Correo Electrónico</label>

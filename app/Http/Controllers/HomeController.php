@@ -102,6 +102,11 @@ class HomeController extends Controller
     /*ESTANDARES DE PROGRAMAS */
     public function CrearPrograma(Request $request){
 
+        $validateData = $request->validate([
+            'programa'=>'unique:programas,nombre',
+            'dni'=>'unique:users,dni'
+        ]);
+
         $infoestandares = InfoEstandar::all();
         $estandares=[];
         foreach($infoestandares as $infoestandar){
@@ -118,7 +123,7 @@ class HomeController extends Controller
             'name'=>$request->nombre,
             'lastname'=>$request->apellido,
             'email'=>$request->email,
-            'dni'=>$request->dni,
+            'dni'=>$validateData['dni'],
             'password'=>$request->dni,
             'rol'=>'adminPrograma',
             'subcomite',
@@ -139,7 +144,7 @@ class HomeController extends Controller
         });
 
         $programa = Programa::create([
-            'nombre' => $request->programa,
+            'nombre' => $validateData['programa'],
             'adminPrograma' => $coordinador->id,
         ]);
         $programa->subcomites()->sync($subcomites->pluck('id')->toArray());
