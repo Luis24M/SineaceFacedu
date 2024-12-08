@@ -11,17 +11,17 @@ class UserApiController extends Controller
      * Display a listing of the resource.
      */
     public function test(){
-        $user=[
-            'email'=>'user@gmail.com',
-            'password'=>'uaser1234',
-        ];
-        return response()->json($user);
+        $user = User::where('rol','adminPrograma')->first();
+        $programa=$user->programa->subcomites->first()->estandares->first()->infoEstandar->first();
+        return response()->json($programa);
+        #return response()->json($user);
     }
 
     public function index()
     {
         //
-
+        $user = User::first();
+        return response()->json($user);
     }
 
     /**

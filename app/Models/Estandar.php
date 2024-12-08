@@ -12,9 +12,9 @@ class Estandar extends Model
     protected $connection = 'mongodb';
     protected $table = 'estandares';
 
-    public function infoEstandar(): HasOne
+    public function infoEstandar(): BelongsTo
     {
-        return $this->HasOne(InfoEstandar::class);
+        return $this->belongsTo(InfoEstandar::class);
     }
 
     public function contextualizacion(): HasOne{

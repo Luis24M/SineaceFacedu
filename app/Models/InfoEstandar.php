@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use MongoDB\Laravel\Eloquent\Model;
-use MongoDB\Laravel\Relations\BelongsToMany;
+use MongoDB\Laravel\Relations\HasMany;
 
 class InfoEstandar extends Model
 {
@@ -17,8 +17,8 @@ class InfoEstandar extends Model
         'indice'
     ];
 
-    public function estandares() : BelongsToMany{
-        return $this->belongsToMany(Estandar::class);
+    public function estandares() : HasMany{
+        return $this->hasMany(Estandar::class);
     }
     
 }

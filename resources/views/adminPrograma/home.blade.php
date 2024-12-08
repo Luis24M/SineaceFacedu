@@ -30,7 +30,47 @@
             </div>
         </div>
         <br>
-
+        {{-- Usuarios Tabla dinamica para eliminar, actulizar o agregar --}}
+        <section class="bg-neutral-200 p-4 rounded-xl">
+            <div class="flex justify-between pr-5">
+                <h1 class="text-2xl font-bold">Usuarios</h1>
+                <button class="bg-green-500 text-white px-2 py-1 rounded-lg" onclick="modal()">Agregar</button>
+            </div>
+            <table class="w-full">
+                <thead>
+                    <tr>
+                        <th class="text-left">Nombre</th>
+                        <th class="text-left">Correo</th>
+                        <th class="text-left">DNI</th>
+                        <th class="text-left">Subcomite</th>
+                        <th class="text-left">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($usuarios as $usuario)
+                    <tr>
+                        <td>{{ $usuario->name }} {{ $usuario->lastname }}</td>
+                        <td>{{ $usuario->email }}</td>
+                        <td>{{ $usuario->dni }}</td>
+                        <td>{{ $usuario->subcomite }}</td>
+                        <td>
+                            <button class="bg-blue-500 text-white px-2 py-1 rounded-lg" onclick="modal()">Editar</button>
+                            <form action="{{ route('usuario.destroy', $usuario->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded-lg" 
+                                        onclick="return confirm('¿Estás seguro de eliminar este usuario?')">
+                                    Eliminar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </section>
+        
+    </section>    
 
     {{-- modal formulario para agregar usuario --}}
     @include('partials.formUsuario')

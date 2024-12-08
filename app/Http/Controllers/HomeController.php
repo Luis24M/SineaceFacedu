@@ -55,23 +55,10 @@ class HomeController extends Controller
     {
         $cacheKey = 'programa_' . Auth::user()->programa . '_' . Auth::id();
         
-        #$programa = Cache::remember($cacheKey, 60 * 24, function () {
-        #    return Programa::with([
-        #        'subcomites' => function($query) {
-        #            $query->with(['estandares' => function($q) {
-        #                // Asegúrate de cargar la relación infoEstandar
-        #                $q->with('infoEstandar')
-        #                  ->whereHas('infoEstandar'); // Solo estandares con infoEstandar
-        #            }]);
-        #        }
-        #    ])
-        #    ->where('nombre', Auth::user()->programa)
-        #    ->first();
-        #});
         $programa=Auth::user()->programa;
         $subcomites = $programa->subcomites;
-        #$usuarios = $subcomites->pluck('usuarios')->flatten(); // Todos los usuarios de los subcomites del programa, pluck para obtener solo los usuarios de cada subcomite y flatten para aplanar el array de arrays
-        return view('adminPrograma.home', compact('programa', 'subcomites'));
+        $usuarios = $subcomites->pluck('usuarios')->flatten(); // Todos los usuarios de los subcomites del programa, pluck para obtener solo los usuarios de cada subcomite y flatten para aplanar el array de arrays
+        return view('adminPrograma.home', compact('programa', 'subcomites','usuarios'));
     }
 
 
@@ -112,7 +99,7 @@ class HomeController extends Controller
         $estandares=[];
         foreach($infoestandares as $infoestandar){
             $estandar=Estandar::create();
-            $estandar->infoEstandar()->save($infoestandar);
+            $infoestandar->estandares()->save($estandar);
             array_push($estandares,$estandar);
         }
         /*COORDINADOR DE PROGRAMA */

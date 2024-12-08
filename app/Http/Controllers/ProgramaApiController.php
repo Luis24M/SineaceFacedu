@@ -15,11 +15,11 @@ class ProgramaApiController extends Controller
     {
         //
 
-        #$programa=Programa::with('adminPrograma')->first();
-        $programa=Programa::first();
-        $admin=$programa->adminPrograma;
+        $programa=Programa::with('adminPrograma')->first();
+        #$programa=Programa::first();
+        #$admin=$programa->adminPrograma;
 
-        return response()->json($admin);
+        return response()->json($programa);
     }
 
     /**

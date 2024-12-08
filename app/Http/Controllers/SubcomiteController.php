@@ -39,29 +39,9 @@ class SubcomiteController extends Controller
      * Display the specified resource.
      */
     public function show(String $subcomite) { 
-        $programaNombre = Auth::user()->programa;
-        
-        $cacheKey = 'programa_subcomites_' . $programaNombre . '_' . Auth::id(); 
-        $programa = Cache::remember($cacheKey, 60 * 24, function() use ($programaNombre) { 
-            return Programa::where('nombre', $programaNombre)
-                ->with(['subcomites' => function($query) {
-                    // En MongoDB, simplemente no hacer nada especial
-                    // La proyección de campos se maneja diferente
-                }])
-                ->first(); 
-        }); 
-    
+        $programa = Auth::user()->programa;
         $subcomiteKey = 'subcomite_' . $subcomite . '_full'; 
-        $fullSubcomite = Cache::remember($subcomiteKey, 60 * 24, function() use ($subcomite) { 
-            return Subcomite::with([ 
-                'estandares' => function($q) { 
-                    $q->with('infoEstandar')
-                      ->whereHas('infoEstandar'); 
-                } 
-            ]) 
-            ->where('_id', $subcomite) 
-            ->first(); 
-        }); 
+        $fullSubcomite = Auth::user()->subcomite::with('estandares')::with('infoEstandar');
     
         return view('adminPrograma.subcomite', [ 
             'subcomite' => $fullSubcomite, 
