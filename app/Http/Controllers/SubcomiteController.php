@@ -41,7 +41,16 @@ class SubcomiteController extends Controller
     public function show(String $subcomite) { 
         $programa = Auth::user()->programa;
         $subcomiteKey = 'subcomite_' . $subcomite . '_full'; 
-        $fullSubcomite = Auth::user()->subcomite::with('estandares')::with('infoEstandar');
+        $fullSubcomite = Cache::remember($subcomiteKey, 60 * 24, function() use ($subcomite) { 
+            return Subcomite::with([ 
+                'estandares' => function($q) { 
+                    $q->with('infoEstandar')
+                      ->whereHas('infoEstandar'); 
+                } 
+            ]) 
+            ->where('_id', $subcomite) 
+            ->first(); 
+        }); 
     
         return view('adminPrograma.subcomite', [ 
             'subcomite' => $fullSubcomite, 

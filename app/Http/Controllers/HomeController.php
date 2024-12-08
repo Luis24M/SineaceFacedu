@@ -138,23 +138,22 @@ class HomeController extends Controller
         return redirect()->route('usuario.home');
     }
 
-    #public function CrearUsuario(Request $request, Programa $programa){
-    #
-    #    $usuario = User::Create([
-    #        'name'=>$request->name,
-    #        'lastname'=>$request->lastname,
-    #        'email'=>$request->email,
-    #        'dni'=>$request->dni,
-    #        'password'=>$request->dni,
-    #        'rol'=>'user',
-    #        'programa'=>$request->programa,
-    #    ]);
-    #    $subcomite = Subcomite::where('id',$request->subcomite)->first();
-    #    $subcomite->usuarios()->attach($usuario->id);
-    #    $usuario->subcomite = $subcomite->nombre;
-    #    $usuario->save();
-    #    return redirect()->route('usuario.home');
-    #}
+    public function CrearUsuario(Request $request, Programa $programa){
+    
+        $usuario = User::Create([
+            'name'=>$request->name,
+            'lastname'=>$request->lastname,
+            'email'=>$request->email,
+            'dni'=>$request->dni,
+            'password'=>$request->dni,
+            'rol'=>'user',
+        ]);
+        $subcomite = Subcomite::where('id',$request->subcomite)->first();
+        $subcomite->usuarios()->attach($usuario->id);
+        $usuario->subcomite = $subcomite->nombre;
+        $usuario->save();
+        return redirect()->route('usuario.home');
+    }
 
     public function usuarios()
     {
