@@ -14,6 +14,6 @@ class Problematica extends Model
     ];
 
     public function narrativa():BelongsTo{
-        return $this->belongsTo(Narrativa::class,'narrativa');
+        return $this->belongsTo(Narrativa::class);
     }
 }

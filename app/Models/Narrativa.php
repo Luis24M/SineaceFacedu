@@ -21,7 +21,7 @@ class Narrativa extends Model
     }
 
     public function contextualizacion(): BelongsTo{
-        return $this->belongsTo(Contextualizacion::class, 'contextualizacion');
+        return $this->belongsTo(Contextualizacion::class);
     }
 
 }

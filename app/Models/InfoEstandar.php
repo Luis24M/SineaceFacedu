@@ -18,7 +18,7 @@ class InfoEstandar extends Model
     ];
 
     public function estandares() : BelongsToMany{
-        return $this->belongsToMany(Estandar::class,'estandares');
+        return $this->belongsToMany(Estandar::class);
     }
     
 }

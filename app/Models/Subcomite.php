@@ -14,15 +14,15 @@ class Subcomite extends Model
 
     public function estandares(): HasMany
     {
-        return $this->hasToMany(Estandar::class); 
+        return $this->hasMany(Estandar::class); 
     }
 
     public function usuarios(): HasMany
     {
-        return $this->hasToMany(User::class); 
+        return $this->hasMany(User::class); 
     }
 
     public function programa():BelongsTo{
-        return $this->belongsTo(Programa::class,'programa');
+        return $this->belongsTo(Programa::class);
     }
 }

@@ -17,9 +17,9 @@
                             <a href="#">
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ $programa->nombre }} </h5>
                             </a>
-                            <p class="mb-3 font-normal text-gray-700"><span class="font-semibold">Encargado:</span> {{ $programa->usuario->name }}, {{$programa->usuario->lastname}}</p>
-                            <p class="mb-3 font-normal text-gray-700"><span class="font-semibold">Dni:</span> {{$programa->usuario->dni}} </p>
-                            <p class="mb-3 font-normal text-gray-700"><span class="font-semibold">Correo:</span> {{$programa->usuario->email}}</p>
+                            <p class="mb-3 font-normal text-gray-700"><span class="font-semibold">Encargado:</span> {{ $programa->adminPrograma->name }}, {{$programa->adminPrograma->lastname}}</p>
+                            <p class="mb-3 font-normal text-gray-700"><span class="font-semibold">Dni:</span> {{$programa->adminPrograma->dni}} </p>
+                            <p class="mb-3 font-normal text-gray-700"><span class="font-semibold">Correo:</span> {{$programa->adminPrograma->email}}</p>
                             <a href="#" class="inline-flex items-center justify-between px-3 py-2 text-sm font-medium text-white bg-[#5a86ff] rounded-lg hover:bg-[#599ee7] hover:w-full transition-all ease-in-out duration-500 focus:ring-4 focus:outline-none focus:ring-blue-300">
                                 Ver
                                 <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">

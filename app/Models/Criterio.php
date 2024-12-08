@@ -16,7 +16,7 @@ class Criterio extends Model
     ];
 
     public function estandar():BelongsTo{
-        return $this->belogsTo(Estandar::class,'estandar');
+        return $this->belogsTo(Estandar::class);
     }
 
     public function setEvidenciasIdsAttribute($value)

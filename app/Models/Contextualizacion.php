@@ -25,6 +25,6 @@ class Contextualizacion extends Model
     }
     
     public function estandar():BelongsTo{
-        return $this->belongsTo(Estandar::class,'estandar');
+        return $this->belongsTo(Estandar::class);
     }
 }

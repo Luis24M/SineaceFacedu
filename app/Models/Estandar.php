@@ -26,6 +26,6 @@ class Estandar extends Model
     }
 
     public function subcomite(): BelongsTo{
-        return $this->belongsTo(Subcomite::class,'subcomite');
+        return $this->belongsTo(Subcomite::class);
     }
 }

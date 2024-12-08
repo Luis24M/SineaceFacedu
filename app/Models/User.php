@@ -52,12 +52,12 @@ class User extends Authenticatable
 
     public function subcomite(): BelongsTo
     {
-        return $this->belongsTo(Subcomite::class,'subcomite');
+        return $this->belongsTo(Subcomite::class);
     }
 
     public function programa(): BelongsTo
     {
-        return $this->belongsTo(Programa::class,'programa');
+        return $this->belongsTo(Programa::class);
     }
 
 }

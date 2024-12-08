@@ -92,18 +92,6 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- subcomite --}}
-                        <div class="row mb-3">
-                            <label for="subcomite" class="col-md-4 col-form-label text-md-end">Subcomité</label>
-                            <div class="col-md-6">
-                                <select id="subcomite" name="subcomite" class="form-select @error('subcomite') is-invalid @enderror" >
-                                    <option value="" disabled selected>Selecciona un subcomité</option>
-                                    @foreach($subcomites as $subcomite)
-                                    <option value="{{ $subcomite->nombre }}">{{ $subcomite->nombre }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
