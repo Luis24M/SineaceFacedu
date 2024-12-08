@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Programa;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProgramaApiController extends Controller
@@ -13,18 +14,12 @@ class ProgramaApiController extends Controller
     public function index()
     {
         //
-        #$programas = Programa::with('usuario')->get();
-        #return response()->json($programas);
-        $programas = Programa::where();
-        $subcomites=[];
-        foreach($programas as $programa){
-            foreach($programas->subcomites as $subcomite){
-                $obSubcomite = Subcomite::where('id',$subcomite->id);
-                array_push($subcomites,$obSubcomite);
-            }
-            
-        }
-        return response()->json($subcomites);
+
+        #$programa=Programa::with('adminPrograma')->first();
+        $programa=Programa::first();
+        $admin=$programa->adminPrograma;
+
+        return response()->json($admin);
     }
 
     /**
@@ -33,6 +28,22 @@ class ProgramaApiController extends Controller
     public function create()
     {
         //
+        $user = User::create([
+            'name'=>'admin',
+            'lastname'=>'admin',
+            'dni'=>'1111',
+            'email'=>'admin@gmail.com',
+            'password'=>'1111',
+            'rol'=>'admin',
+        ]);
+
+        $programa=Programa::create([
+            'nombre'=>'PROGRAMA 1'
+        ]);
+
+        $programa->adminPrograma()->save($user);
+
+        return response()->json($programa);
     }
 
     /**

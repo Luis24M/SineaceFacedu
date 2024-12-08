@@ -3,25 +3,24 @@
 namespace App\Models;
 
 use MongoDB\Laravel\Eloquent\Model;
-use MongoDB\Laravel\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Programa extends Model
 {
     //
     protected $connection = 'mongodb';
     protected  $fillable=[
-        'nombre',
-        'adminPrograma',
-        'subcomites',
+        'nombre'
     ];
 
-    public function usuario()
+    public function adminPrograma(): HasOne
     {
-        return $this->belongsTo(User::class, 'adminPrograma', '_id');
+        return $this->hasOne(User::class);
     }
 
-    public function subcomites(): BelongsToMany
+    public function subcomites(): HasMany
     {
-        return $this->belongsToMany(Subcomite::class);
+        return $this->hasMany(Subcomite::class);
     }
 }

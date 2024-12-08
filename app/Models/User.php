@@ -25,8 +25,6 @@ class User extends Authenticatable
         'email',
         'password',
         'rol',
-        'subcomite',
-        'programa'
     ];
 
     /**
@@ -52,8 +50,14 @@ class User extends Authenticatable
         ];
     }
 
-    public function subcomites(): BelongsTo
+    public function subcomite(): BelongsTo
     {
-        return $this->belongsTo(Subcomite::class);
+        return $this->belongsTo(Subcomite::class,'subcomite');
     }
+
+    public function programa(): BelongsTo
+    {
+        return $this->belongsTo(Programa::class,'programa');
+    }
+
 }

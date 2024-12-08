@@ -3,19 +3,28 @@
 namespace App\Models;
 
 use MongoDB\Laravel\Eloquent\Model;
+use MongoDB\Laravel\Relations\HasOne;
 use MongoDB\Laravel\Relations\BelongsTo;
+use MongoDB\Laravel\Relations\HasMany;
 
 class Contextualizacion extends Model
 {
     protected $connection = 'mongodb';
     protected $table = 'contextualizaciones';
     protected $fillable = [
-        'brechas',
         'planesMejora',
     ];
 
-    public function narrativa(): BelongsTo
+    public function narrativa(): HasOne
     {
-        return $this->belongsTo(Narrativa::class, 'narrativa');
+        return $this->hasOne(Narrativa::class);
+    }
+    
+    public function brechas(): HasMany{
+        return $this->hasMany(Problematica::class);
+    }
+    
+    public function estandar():BelongsTo{
+        return $this->belongsTo(Estandar::class,'estandar');
     }
 }

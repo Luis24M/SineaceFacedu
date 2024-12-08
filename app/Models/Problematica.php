@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use MongoDB\Laravel\Eloquent\Model;
+use MongoDB\Laravel\Relations\BelongsTo;
 
 class Problematica extends Model
 {
@@ -11,4 +12,8 @@ class Problematica extends Model
         'nombre',
         'description'
     ];
+
+    public function narrativa():BelongsTo{
+        return $this->belongsTo(Narrativa::class,'narrativa');
+    }
 }

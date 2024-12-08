@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use MongoDB\Laravel\Eloquent\Model;
-use MongoDB\BSON\ObjectId;
+use MongoDB\Laravel\Relations\BelongsTo;
 
 class Criterio extends Model
 {
@@ -15,6 +15,10 @@ class Criterio extends Model
         'evidencias_ids'
     ];
 
+    public function estandar():BelongsTo{
+        return $this->belogsTo(Estandar::class,'estandar');
+    }
+
     public function setEvidenciasIdsAttribute($value)
     {
         if (is_array($value)) {
@@ -23,11 +27,6 @@ class Criterio extends Model
             }, $value);
         }
     }
-
-    public function evidencias(){
-        return $this->belongToMany(Evidencia::class, null , 'criterios_ids', 'evidencia_ids');
-    }
-
 
     public function agregarEvidencia(Evidencia $evidencia)
     {

@@ -56,3 +56,4 @@ Route::post('subcomite',[SubcomiteApiController::class,'create'])->name('subcomi
 
 /*RUTA PROGRAMAS */
 Route::get('programas',[ProgramaApiController::class,'index'])->name('programas');
+Route::post('programa',[ProgramaApiController::class,'create'])->name('programa');
