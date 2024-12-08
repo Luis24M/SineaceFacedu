@@ -115,6 +115,9 @@ class HomeController extends Controller
             #'programa'=>$request->programa,    -> CREACION CON METODO
         ]);
 
+        $contextualziacion= Contextualziacion::create([]);
+        
+
         $subcomites = collect([
             ['nombre' => 'Gestión Misional del Programa','estandares' => [0, 2, 4, 5, 6, 7, 8, 9, 10, 17, 32]],
             ['nombre' => 'Investigación y Responsabilidad Social Universitaria', 'estandares' => [11, 21, 22, 23, 24, 25]],
@@ -149,9 +152,7 @@ class HomeController extends Controller
             'rol'=>'user',
         ]);
         $subcomite = Subcomite::where('id',$request->subcomite)->first();
-        $subcomite->usuarios()->attach($usuario->id);
-        $usuario->subcomite = $subcomite->nombre;
-        $usuario->save();
+        $subcomite->usuarios()->save($usuario);
         return redirect()->route('usuario.home');
     }
 

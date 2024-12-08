@@ -52,7 +52,7 @@
                         <td>{{ $usuario->name }} {{ $usuario->lastname }}</td>
                         <td>{{ $usuario->email }}</td>
                         <td>{{ $usuario->dni }}</td>
-                        <td>{{ $usuario->subcomite }}</td>
+                        <td>{{ $usuario->subcomite->nombre }}</td>
                         <td>
                             <button class="bg-blue-500 text-white px-2 py-1 rounded-lg" onclick="modal()">Editar</button>
                             <form action="{{ route('usuario.destroy', $usuario->id) }}" method="POST" style="display:inline;">
