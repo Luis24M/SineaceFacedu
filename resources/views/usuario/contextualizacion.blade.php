@@ -35,16 +35,16 @@
                             </thead>
                             <tbody class="[&>tr>td]:p-2">
                                 <tr class="flex justify-between [&>td]:text-center [&>td]:grow">
-                                    <td>{{ $estandar->dimension }}</td>
-                                    <td>{{ $estandar->factor }}</td>
-                                    <td>{{ $estandar->titulo }}</td>
+                                    <td>{{ $estandar->infoEstandar->dimension }}</td>
+                                    <td>{{ $estandar->infoEstandar->factor }}</td>
+                                    <td>{{ $estandar->infoEstandar->titulo }}</td>
                                 </tr>
                                 <tr>
                                     <td>
                                         <strong>
-                                            {{ $estandar->titulo }}
+                                            {{ $estandar->infoEstandar->titulo }}
                                         </strong>
-                                        <p>{{ $estandar->descripcion }}</p>
+                                        <p>{{ $estandar->infoEstandar->descripcion }}</p>
                                     </td>
                                 </tr>
                                 <tr>
@@ -89,8 +89,8 @@
         <section id="right_sidebar"
             class="w-[500px] flex flex-col justify-between min-h-screen fixed right-0 bg-[#D5D6E7] px-20 py-7">
             <section>
-                <h2 class="text-xl font-medium">{{ $estandar->titulo }}</h2>
-                <p class="text-md my-3">{{ $estandar->descripcion }}</p>
+                <h2 class="text-xl font-medium">{{ $estandar->infoEstandar->titulo }}</h2>
+                <p class="text-md my-3">{{ $estandar->infoEstandar->descripcion }}</p>
             </section>
             @if (request()->routeIs('estandar.planMejora'))
                 @include('partials.brechasBar')

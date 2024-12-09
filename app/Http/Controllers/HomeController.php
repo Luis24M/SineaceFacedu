@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use MongoDB\BSON\ObjectId; 
 use App\Models\Subcomite;
+use App\Models\Contextualizacion;
+use App\Models\Narrativa;
 use App\Models\InfoEstandar;
 use App\Models\Estandar;
 use App\Models\Programa;
@@ -99,6 +100,10 @@ class HomeController extends Controller
         $estandares=[];
         foreach($infoestandares as $infoestandar){
             $estandar=Estandar::create();
+            $contextualizacion = Contextualizacion::create();
+            $estandar->contextualizacion()->save($contextualizacion);
+            $narrativa=Narrativa::create();
+            $contextualizacion->narrativa()->save($narrativa);
             $infoestandar->estandares()->save($estandar);
             array_push($estandares,$estandar);
         }
@@ -115,9 +120,7 @@ class HomeController extends Controller
             #'programa'=>$request->programa,    -> CREACION CON METODO
         ]);
 
-        $contextualziacion= Contextualziacion::create([]);
-        
-
+    
         $subcomites = collect([
             ['nombre' => 'Gestión Misional del Programa','estandares' => [0, 2, 4, 5, 6, 7, 8, 9, 10, 17, 32]],
             ['nombre' => 'Investigación y Responsabilidad Social Universitaria', 'estandares' => [11, 21, 22, 23, 24, 25]],

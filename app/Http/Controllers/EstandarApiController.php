@@ -16,8 +16,9 @@ class EstandarApiController extends Controller
     public function index()
     {
         //
-        $estandares = Estandar::all();
-        return response()->json($estandares);
+        $estandar = Estandar::with(['subcomite.estandares.infoEstandar'])->where('id', '6756594cdd809abe7f0415d8')->first();
+        #$estandares = Estandar::with('contextualizacion')->first();
+        return response()->json($estandar);
     }
 
     /**

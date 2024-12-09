@@ -69,7 +69,7 @@
                                     Agregar Problematica
                                 </h3>
                                 <div class="mt-2">
-                                    <form action={{ route('problematica.store', [$narrativa, $contextualizacion]) }}
+                                    <form action="{{ route('problematica.store', [$narrativa, $contextualizacion]) }}"
                                         method="POST">
                                         @csrf
                                         <div>
