@@ -45,7 +45,7 @@ class EstandarController extends Controller
             'programa' => ['nullable', 'string'],
         ]);
         $contextualizacion = $this->getContextualizacion($estandar->contextualizacion);
-        $narrativa = $this->getNarrativa($contextualizacion->narrativa);
+        $narrativa = $this->getNarrativa($contextualizacion->narrativa) ? $contextualizacion->narrativa  : "no hay narrativa aun"  ;
         $narrativa->misionPrograma = request('programa');
         $narrativa->save();
         return redirect()->back()->with('success', 'Narrativa actualizada correctamente');

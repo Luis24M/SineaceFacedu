@@ -28,7 +28,7 @@
             </div>
             <div>
                 <h3>PROGRAMA DE ESTUDIO</h3>
-                <form action={{ route('estandar.actualizarNarrativaPrograma', $estandar) }} method="POST">
+                <form action="{{ route('estandar.actualizarNarrativaPrograma', $estandar) }}" method="POST">
                     @csrf
                     <div id="toolbar"></div>
                     <div id="editor1" class="">{!! $narrativa->misionPrograma !!}</div>

@@ -35,14 +35,15 @@ class ProblematicaController extends Controller
             'description' => 'required'
         ]);
 
-        $problematica = new Problematica($data);
-        $problematica->save();
+        $problematica = Problematica::create([
+            'nombre'=>$data['nombre'],
+            'description'=>$data['description']
+        ]);
+        
         // agregar el nombre de la problematica al campo de brechas de contextualizacion, el campo brechas es un array de strings
-        $contextualizacion->brechas = array_merge($contextualizacion->brechas, [$problematica->nombre]);
-        $contextualizacion->save();
+        $contextualizacion->brechas()->save($problematica);
         // agregar el oid de la problematica al campo de problematicas de narrativa
-        $narrativa->problematicas = array_merge($narrativa->problematicas, [new ObjectId($problematica->id)]); 
-        $narrativa->save();
+        $narrativa->problematicas()->save($problematica) ; 
         return redirect()->back()->with('success', 'Problematica creada correctamente');
     }
 
