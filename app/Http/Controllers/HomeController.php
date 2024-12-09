@@ -47,7 +47,7 @@ class HomeController extends Controller
     #USUARIO ORDINARIO
     public function index()
     {
-        $subcomite = Subcomite::whereIn('id', Auth::user()->subcomite_ids)->first();
+        $subcomite = Auth::user()->subcomite;
         return view('usuario.home', compact('subcomite'));
     }
 

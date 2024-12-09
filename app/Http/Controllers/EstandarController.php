@@ -30,10 +30,10 @@ class EstandarController extends Controller
 
     public function index(Estandar $estandar)
     {   
-        $subcomite = $this->getSubcomite();
-        $contextualizacion = $this->getContextualizacion($estandar->contextualizacion);
-        $narrativa = $this->getNarrativa($contextualizacion->narrativa);
-        $problematicas = Problematica::whereIn('id', $narrativa->problematicas)->get();
+        $subcomite = $estandar->subcomite;
+        $contextualizacion = $estandar->contextualizacion;
+        $narrativa = $contextualizacion->narrativa;
+        $problematicas = $narrativa->problematicas;
 
         return view('usuario.contextualizacion', compact('subcomite', 'estandar', 'contextualizacion', 'narrativa', 'problematicas'));
     }
