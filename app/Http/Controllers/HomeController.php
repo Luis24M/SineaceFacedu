@@ -49,7 +49,8 @@ class HomeController extends Controller
     public function index()
     {
         $subcomite = Auth::user()->subcomite;
-        return view('usuario.home', compact('subcomite'));
+        $estandares = $subcomite->estandares()->with('infoEstandar')->get();
+        return view('usuario.home', compact('subcomite','estandares'));
     }
 
     public function adminPrograma()
@@ -141,7 +142,12 @@ class HomeController extends Controller
         
         $programa->subcomites()->saveMany($subcomites);
 
-        return redirect()->route('usuario.home');
+        return redirect()->route('usuario.home',);
+    }
+
+    public function asignarMision(){
+        $programas = Programa::all();
+        return view('administrador.asignarMision',compact('programas'));
     }
 
     public function CrearUsuario(Request $request, Programa $programa){
@@ -161,7 +167,6 @@ class HomeController extends Controller
 
     public function usuarios()
     {
-
         $usuarios = User::all();
         return view('adminPrograma.usuarios',compact('usuarios'));
     }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="w-full flex">
 
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,7 @@
     <title>FACEDU - SINEACE</title>
 </head>
 
-<body class="flex">
+<body class="flex w-full ">
     <nav class="w-[350px] px-10 py-5 bg-[#D5D6E7] fixed h-screen flex flex-col items-center">
         <section class="flex justify-center items-center">
             <img width="80px" src="{{ asset('images/logoUNT.png') }}" alt="">
@@ -20,6 +20,7 @@
             <h2><strong>{{ Auth::user()->name }} {{ Auth::user()->lastname }}</strong></h2>
             <h3>{{ Auth::user()->email }}</h3>
         </section>
+        <!--SIDEBARA OPTIONS-->
         <ul class="flex flex-col h-1/2 py-20">
             <li class="flex gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -33,16 +34,9 @@
                 </svg>
                 <a href="{{ route('usuario.home') }}">Main</a>
             </li>
-            @if (Auth::user()->rol == 'user')
-                @include('partials.sidebar')
-            @else
-                @if (Auth::user()->rol == 'adminPrograma')
-                    @include('partials.sidebarAdminPrograma')
-                @else
-                    @include('partials.sidebarAdmin')
-                @endif
-            @endif
+            @include('partials.sidebar')
         </ul>
+        
         <div class="order-last">
             <a class="dropdown-item flex hover:font-bold" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
@@ -62,9 +56,9 @@
                 @csrf
             </form>
         </div>
-
     </nav>
-    <main class="w-full">
+
+    <main class="col-span-12 lg:col-start-3 lg:col-span-10 ml-auto w-full flex flex-col p-5">
         @if (session('success'))
             <div id="success-notification"
                 class="absolute z-20 right-0 bg-green-100 border-l-4 border-green-500 text-green-700 p-4">

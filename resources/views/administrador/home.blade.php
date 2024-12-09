@@ -5,10 +5,11 @@
         <h1 class="text-5xl text-neutral-600 ">Buen día <strong>{{ Auth::user()->name }}</strong></h1>
     </div>
     
+<div class="h-full flex flex-col">
     @if(count($programas) > 0)
-        <div class="h-1/2 p-4">
+        <div class=" p-4 space-y-5">
             <!-- Contenedor principal en columnas -->
-            <div class="flex flex-col bg-neutral-100 drop-shadow-md p-4  rounded-xl gap-4">
+            <div class="flex flex-col bg-neutral-100 drop-shadow-md p-4 rounded-xl gap-4">
                 <h2 class="text-3xl font-medium">Programas</h2>
                 <!-- Contenedor de items en una fila con gap -->
                 <div class="flex flex-wrap justify-around gap-4">
@@ -31,7 +32,7 @@
                     @endforeach
                 </div>
                 <!-- Botón Agregar al final -->
-                <div class="flex justify-center mt-6">
+                <div class="flex justify-center">
                     <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                         Agregar
                     </button>
@@ -46,7 +47,6 @@
             </button>
         </div>
     @endif
-
     <!-- Main modal -->
     <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full max-w-md max-h-full">
@@ -123,6 +123,23 @@
             </div>
         </div>
     </div>
+    
+    <div class="mt-5 flex flex-col bg-neutral-100 drop-shadow-md p-4 rounded-xl gap-4">
+    <h1 class="text-3xl font-medium" id="misionFacultad">Misión de Facultad</h1>
+    <p>¿Desea modificar la misión de la facultad?</p>
+    <form method="post" action="">
+        <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Misión de Facultad</label>
+        <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Ingrese sus ideas"></textarea>
+
+        <!-- Contenedor del botón alineado a la derecha -->
+        <div class="flex justify-end mt-3">
+            <button type="submit" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                Guardar
+            </button>
+        </div>
+    </form>
+</div>
+
     <script>
         document.getElementById('programaForm').addEventListener('submit', function (event) {
             const submitButton = event.target.querySelector('button[type="submit"]');

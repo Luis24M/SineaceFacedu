@@ -27,6 +27,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
 Route::middleware(['auth','role:admin'])->group(function (){
   Route::post('/crearPrograma',[HomeController::class,'CrearPrograma'])->name('home.crearPrograma');
+  Route::get('/misionPrograma',[HomeController::class,'asignarMision'])->name('misionProgramas.admin');
 });
 
 Route::middleware(['auth', 'role:adminPrograma'])->group(function (){

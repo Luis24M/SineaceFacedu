@@ -102,7 +102,8 @@
 </head>
 <body class="h-full grid grid-cols-12">
     <!-- Barra lateral -->
-    <nav class="px-10 py-5 bg-[#D5D6E7] h-screen w-3/12 col-start-1 flex fixed flex-col items-center">
+    <nav class="px-10 py-5 bg-[#D5D6E7] h-screen min-w-[250px] lg:w-2/12 fixed top-0 left-0 z-40 flex flex-col items-center transform -translate-x-full transition-transform duration-300 lg:translate-x-0 "
+        id="sidebar">
         @include('partials.sidebarAdmin')
     </nav>
 
