@@ -58,7 +58,7 @@
         </div>
     </nav>
 
-    <main class="col-span-12 lg:col-start-3 lg:col-span-10 ml-auto w-full flex flex-col p-5">
+    <main class="col-span-12 lg:col-start-3 lg:col-span-10 ml-auto w-full flex flex-col">
         @if (session('success'))
             <div id="success-notification"
                 class="absolute z-20 right-0 bg-green-100 border-l-4 border-green-500 text-green-700 p-4">
