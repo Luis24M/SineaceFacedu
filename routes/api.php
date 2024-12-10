@@ -11,6 +11,7 @@ use App\Http\Controllers\EstandarApiController ;
 use App\Http\Controllers\ContextualizacionApiController;
 use App\Http\Controllers\SubcomiteApiController;
 use App\Http\Controllers\ProgramaApiController;
+use App\Http\Controllers\NarrativaController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -57,3 +58,7 @@ Route::post('subcomite',[SubcomiteApiController::class,'create'])->name('subcomi
 /*RUTA PROGRAMAS */
 Route::get('programas',[ProgramaApiController::class,'index'])->name('programas');
 Route::post('programa',[ProgramaApiController::class,'create'])->name('programa');
+
+/*RUTA PROGRAMAS */
+Route::get('narrativas',[NarrativaController::class,'index'])->name('narrativas');
+#Route::post('programa',[ProgramaApiController::class,'create'])->name('programa');

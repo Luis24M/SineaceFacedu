@@ -124,12 +124,15 @@
         </div>
     </div>
     
-    <div class="mt-5 flex flex-col bg-neutral-100 drop-shadow-md p-4 rounded-xl gap-4">
+    <div class="mt-5 flex flex-col bg-neutral-200 drop-shadow-md p-4 rounded-xl gap-4">
     <h1 class="text-3xl font-medium" id="misionFacultad">Misión de Facultad</h1>
     <p>¿Desea modificar la misión de la facultad?</p>
-    <form method="post" action="">
+    <form method="post" action="{{route('home.asignarMision')}}">
+    @csrf
         <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Misión de Facultad</label>
-        <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Ingrese sus ideas"></textarea>
+        <textarea id="message" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 
+        rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+         placeholder="Ingrese sus ideas" rows=5 name="mision">{{$narrativa->misionUNT}}</textarea>
 
         <!-- Contenedor del botón alineado a la derecha -->
         <div class="flex justify-end mt-3">
