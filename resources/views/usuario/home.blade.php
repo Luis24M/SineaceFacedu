@@ -1,9 +1,11 @@
 @extends('layouts.usuario')
+
+@section('content')
 <section>
-        <div class="pl-2 my-4 ml-[400px]">
+        <div class="pl-2 my-4">
             <h1 class="text-5xl text-neutral-600">Bienvenido <strong>{{ Auth::user()->name }}</strong></h1>
         </div>
-        <div class="bg-neutral-200 p-4 rounded-xl space-y-3 ml-[400px] w-full">
+        <div class="bg-neutral-200 p-4 rounded-xl space-y-3 w-full">
             <h1 class="text-2xl font-bold">Estandares</h1>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 @foreach ($estandares as $estandar)
@@ -20,5 +22,5 @@
             </div>
         </div>
 </section>
-@section('content')
+
 @endsection

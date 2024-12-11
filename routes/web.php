@@ -11,7 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\SubcomiteController;
 
 Route::get('/', [HomeController::class, 'redirect'])->name('usuario.home')->middleware('auth');
-Route::get('generate-pdf', [PDFController::class, 'generatePDF'])->name('pdf');
+Route::get('generate-pdf/{estandar}', [PDFController::class, 'generatePDF'])->name('pdf');
 Route::middleware(['auth', 'role:user'])->group(function () {
   Route::controller(EstandarController::class)->group(function () {
     Route::get('/estandar/{estandar}', 'index')->name('estandar.index');
