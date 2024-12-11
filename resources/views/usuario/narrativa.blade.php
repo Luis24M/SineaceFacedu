@@ -1,9 +1,8 @@
 <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 
-<div class="my-3 contenedor_doc flex justify-center items-center">
-    <div class="documento">
-        <div class="page flex flex-col gap-4 [&>div>h3]:text-xl [&>div>h3]:font-semibold">
+<div class="my-3 flex justify-center items-center max-w-4xl mx-auto">
+        <div class="flex flex-col gap-4 [&>div>h3]:text-xl [&>div>h3]:font-semibold">
             <div>
                 <h3>INSTITUCIONAL</h3>
                 <br>
@@ -15,6 +14,7 @@
                     </p>
                 @endif
             </div>
+            <br>
             <div>
                 <h3>FACULTAD</h3>
                 <br>
@@ -26,17 +26,19 @@
                     </p>
                 @endif
             </div>
+            <br>
             <div>
                 <h3>PROGRAMA DE ESTUDIO</h3>
-                <form action="{{ route('estandar.actualizarNarrativaPrograma', $estandar) }}" method="POST">
+                <form action="{{ route('estandar.actualizarNarrativaPrograma', $estandar) }}" method="POST" class="w-full flex flex-col">
                     @csrf
                     <div id="toolbar"></div>
                     <div id="editor1" class="">{!! $narrativa->misionPrograma !!}</div>
                     <input type="hidden" name="programa" id="hiddenContentPrograma">
-                    <button id="content" class="py-2 px-4 bg-green-500 rounded-lg mt-2"
+                    <button id="content" class="py-2 px-4 items-end bg-green-6z00 rounded-lg mt-2"
                         onclick="verPrograma()">Guardar</button>
                 </form>
             </div>
+            <br>
             <div>
                 <h3>DESCRIPCIÓN</h3>
                 @foreach ($problematicas as $problematica)
@@ -45,12 +47,6 @@
                 <button id="content" class="py-2 px-4 bg-green-500 rounded-lg mt-2" onclick="problematica()">Agregar
                     Problematica</button>
             </div>
-        </div>
-        <!-- Controles de zoom -->
-        <div class="zoom-controls">
-            <button onclick="zoomIn()" class="px-3 py-1 bg-gray-200 rounded mr-2">+</button>
-            <button onclick="zoomOut()" class="px-3 py-1 bg-gray-200 rounded mr-2">-</button>
-            <button onclick="resetZoom()" class="px-3 py-1 bg-gray-200 rounded">Reset</button>
         </div>
 
         {{-- modal form problematica hecho con tailwind --}}
@@ -102,7 +98,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
 </div>
 <script>
     var quill1 = new Quill('#editor1', {

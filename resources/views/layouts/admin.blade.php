@@ -108,7 +108,7 @@
     </nav>
 
     <!-- Contenido principal -->
-    <main class="col-start-4 col-span-9 ml-auto w-full flex flex-col p-5">
+    <main class="col-start-3 col-span-10 ml-auto w-full flex flex-col p-5">
         @yield('content')
     </main>
 </body>

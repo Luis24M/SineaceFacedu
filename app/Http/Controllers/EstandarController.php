@@ -31,9 +31,9 @@ class EstandarController extends Controller
     public function index(Estandar $estandar)
     {   
         $subcomite = $estandar->subcomite;
-        $contextualizacion = $estandar->contextualizacion  ;
-        $narrativa = $contextualizacion->narrativa ;
-        $problematicas = $narrativa->problematicas ;
+        $contextualizacion = $estandar->contextualizacion;
+        $narrativa = $contextualizacion->narrativa;
+        $problematicas = $narrativa->problematicas;
         $infoEstandar = $estandar->infoEstandar;
 
         return view('usuario.contextualizacion', compact('subcomite', 'estandar','narrativa','problematicas','contextualizacion'));
