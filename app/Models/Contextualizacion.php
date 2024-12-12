@@ -20,10 +20,11 @@ class Contextualizacion extends Model
         return $this->hasOne(Narrativa::class);
     }
     
-    public function brechas(): HasMany{
+    public function problematicas(): HasMany
+    {
         return $this->hasMany(Problematica::class);
     }
-    
+
     public function estandar():BelongsTo{
         return $this->belongsTo(Estandar::class);
     }
