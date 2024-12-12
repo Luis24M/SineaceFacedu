@@ -45,7 +45,8 @@
                     <path d="M6 9l6 6 6-6" />
                 </svg>
             </h3>
-            <ul id="dropdown-menu" class="max-h-0 pl-9 mt-2 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+            <ul id="dropdown-menu"
+                class="max-h-0 pl-9 mt-2 overflow-hidden transition-[max-height] duration-300 ease-in-out">
                 @foreach ($programa->subcomites as $subcomite)
                     <li>
                         <a class="inline-block text-nowrap overflow-hidden overflow-ellipsis max-w-full"
@@ -69,27 +70,28 @@
             Usuarios
         </h3>
     </div>
-</ul>
 
-<div class="order-last">
-    <a class="dropdown-item flex hover:font-bold" href="{{ route('logout') }}"
-        onclick="event.preventDefault();
+
+    <div class="order-last">
+        <a class="dropdown-item flex hover:font-bold" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
                      document.getElementById('logout-form').submit();">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="icon icon-tabler icons-tabler-outline icon-tabler-logout">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
-            <path d="M9 12h12l-3 -3" />
-            <path d="M18 15l3 -3" />
-        </svg>
-        {{ __('Logout') }}
-    </a>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-logout">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+                <path d="M9 12h12l-3 -3" />
+                <path d="M18 15l3 -3" />
+            </svg>
+            {{ __('Logout') }}
+        </a>
 
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-        @csrf
-    </form>
-</div>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
+    </div>
+</ul>
 <script>
     function toggleDropdown() {
         const menu = document.getElementById("dropdown-menu");

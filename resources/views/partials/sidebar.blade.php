@@ -8,7 +8,8 @@
     <h3>{{ Auth::user()->email }}</h3>
 </section>
 <!--SIDEBARA OPTIONS-->
-<ul class="flex flex-col h-3/4 py-20 no-scrollbar overflow-scroll overflow-x-hidden">
+<ul class="flex flex-col h-1/2 py-20 overflow-scroll no-scrollbar">
+    <!-- Opción principal -->
     <li class="flex gap-3">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -21,38 +22,80 @@
         </svg>
         <a href="{{ route('usuario.home') }}">Main</a>
     </li>
-    <div class=mt-4>
-        @foreach ($subcomite->estandares as $estandar)
-            <a href="{{ route('estandar.index', $estandar) }}" class="flex gap-2">
+
+    <!-- Contenedor de subcomités y usuarios -->
+    <div class="mt-4 w-[250px]">
+        <!-- Subcomités desplegables -->
+        <div class="relative">
+            <h3 class="flex items-center gap-3 cursor-pointer titulo" onclick="toggleDropdown()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="icon icon-tabler icons-tabler-outline icon-tabler-text-caption">
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-subtask">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M4 15h16" />
-                    <path d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
-                    <path d="M4 20h12" />
+                    <path d="M6 9l6 0" />
+                    <path d="M4 5l4 0" />
+                    <path d="M6 5v11a1 1 0 0 0 1 1h5" />
+                    <path d="M12 7m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z" />
+                    <path d="M12 15m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z" />
                 </svg>
-                {{ $estandar->infoEstandar->titulo }}
-            </a>
-        @endforeach
-    </div>
-    <div class="order-last mt-3">
-        <a class="dropdown-item flex hover:font-bold" href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-                 document.getElementById('logout-form').submit();">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                class="icon icon-tabler icons-tabler-outline icon-tabler-logout">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
-                <path d="M9 12h12l-3 -3" />
-                <path d="M18 15l3 -3" />
-            </svg>
-            {{ __('Logout') }}
-        </a>
+                Estandares
+                <svg id="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="ml-auto transition-transform duration-300">
+                    <path d="M6 9l6 6 6-6" />
+                </svg>
+            </h3>
+            <ul id="dropdown-menu"
+                class="max-h-0 pl-9 mt-2 overflow-hidden transition-[max-height] duration-300 ease-in-out">
+                @foreach ($subcomite->estandares as $estandar)
+                    <li>
+                        <a class="inline-block text-nowrap overflow-hidden overflow-ellipsis max-w-full"
+                            href="{{ route('estandar.index', $estandar->id) }}">
+                            {{ $estandar->infoEstandar->titulo }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
 
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-            @csrf
-        </form>
-    </div>
+        <div class="order-last">
+            <a class="dropdown-item flex hover:font-bold" href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                     document.getElementById('logout-form').submit();">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-logout">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+                    <path d="M9 12h12l-3 -3" />
+                    <path d="M18 15l3 -3" />
+                </svg>
+                {{ __('Logout') }}
+            </a>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+        </div>
 </ul>
+<script>
+    function toggleDropdown() {
+        const menu = document.getElementById("dropdown-menu");
+        const icon = document.getElementById("dropdown-icon");
+        const titulo = document.querySelector(".titulo");
+
+
+        // Alternar la clase de max-height
+        if (menu.classList.contains("max-h-0")) {
+            menu.classList.remove("max-h-0");
+            menu.classList.add("max-h-96"); // Define un valor suficiente para el contenido
+            icon.style.transform = "rotate(180deg)";
+            titulo.style.fontWeight = "bold";
+        } else {
+            menu.classList.remove("max-h-96");
+            menu.classList.add("max-h-0");
+            icon.style.transform = "rotate(0deg)";
+            titulo.style.fontWeight = "normal";
+        }
+    }
+</script>

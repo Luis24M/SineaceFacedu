@@ -129,9 +129,15 @@
                     <td colspan="3" id="cuerpo">
                         <h2 class="section-title">1. Redacción de la contextualización</h2>
                         <div class="content-block">
-                            {!! $narrativa->misionUNT !!}
-                            {!! $narrativa->misionFacultad !!}
-                            {!! $narrativa->misionPrograma !!}
+                            <p>
+                                {!! $narrativa->misionUNT !!}
+                            </p>
+                            <p>
+                                {!! $narrativa->misionFacultad !!}
+                            </p>
+                            <p>
+                                {!! $narrativa->misionPrograma !!}
+                            </p>
                             @foreach ($problematicas as $problematica)
                             <p>{{ $problematica->description }}</p> <br>
                             @endforeach
