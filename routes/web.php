@@ -27,7 +27,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
 Route::middleware(['auth','role:admin'])->group(function (){
   Route::post('/crearPrograma',[HomeController::class,'CrearPrograma'])->name('home.crearPrograma');
-  Route::post('/asignarMision',[HomeController::class,'AsignarMision'])->name('home.asignarMision');
+  Route::post('/asignarMisionUNT',[HomeController::class,'AsignarMisionUNT'])->name('home.asignarMisionUNT');
+  Route::post('/asignarMisionFacultad',[HomeController::class,'AsignarMisionFacultad'])->name('home.asignarMisionFacultad');
 });
 
 Route::middleware(['auth', 'role:adminPrograma'])->group(function (){

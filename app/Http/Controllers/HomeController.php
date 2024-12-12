@@ -148,7 +148,7 @@ class HomeController extends Controller
         return redirect()->route('usuario.home');
     }
 
-    public function AsignarMision(Request $request){
+    public function AsignarMisionUNT(Request $request){
         try {
             $narrativas = Narrativa::all();
             foreach($narrativas as $narrativa){
@@ -163,6 +163,22 @@ class HomeController extends Controller
         }
     }
     
+
+    public function AsignarMisionFacultad(Request $request){
+        try {
+            $narrativas = Narrativa::all();
+            foreach($narrativas as $narrativa){
+                $narrativa->misionFacultad = $request->mision;
+                $narrativa->save();
+            }
+    
+            return redirect()->route('usuario.home')->with('success', 'Misión actualizada');
+        } catch (\Exception $e) {
+            // Esto te ayudará a ver el error exacto
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
 
     public function CrearUsuario(Request $request, Programa $programa){
     
