@@ -67,7 +67,8 @@ class HomeController extends Controller
     public function admin()
     {   
         $programas = Programa::with('adminPrograma')->get();
-        return view('administrador.home',compact('programas'));
+        $narrativa = Narrativa::first();
+        return view('administrador.home',compact('programas','narrativa'));
     }
 
     /*CREAR USUARIO Y PROGRAMA Y SUBCOMITES y ESTANDARES*/
@@ -142,13 +143,42 @@ class HomeController extends Controller
         
         $programa->subcomites()->saveMany($subcomites);
 
-        return redirect()->route('usuario.home',);
+        $narrativa=Narrativa::first();
+
+        return redirect()->route('usuario.home');
     }
 
-    public function asignarMision(){
-        $programas = Programa::all();
-        return view('administrador.asignarMision',compact('programas'));
+    public function AsignarMisionUNT(Request $request){
+        try {
+            $narrativas = Narrativa::all();
+            foreach($narrativas as $narrativa){
+                $narrativa->misionUNT = $request->mision;
+                $narrativa->save();
+            }
+    
+            return redirect()->route('usuario.home')->with('success', 'Misión actualizada');
+        } catch (\Exception $e) {
+            // Esto te ayudará a ver el error exacto
+            return back()->with('error', $e->getMessage());
+        }
     }
+    
+
+    public function AsignarMisionFacultad(Request $request){
+        try {
+            $narrativas = Narrativa::all();
+            foreach($narrativas as $narrativa){
+                $narrativa->misionFacultad = $request->mision;
+                $narrativa->save();
+            }
+    
+            return redirect()->route('usuario.home')->with('success', 'Misión actualizada');
+        } catch (\Exception $e) {
+            // Esto te ayudará a ver el error exacto
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
 
     public function CrearUsuario(Request $request, Programa $programa){
     
