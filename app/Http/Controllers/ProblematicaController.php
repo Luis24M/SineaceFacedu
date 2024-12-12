@@ -41,9 +41,9 @@ class ProblematicaController extends Controller
         ]);
         
         // agregar el nombre de la problematica al campo de brechas de contextualizacion, el campo brechas es un array de strings
-        $contextualizacion->brechas()->save($problematica);
+        $contextualizacion->problematicas()->save($problematica);
         // agregar el oid de la problematica al campo de problematicas de narrativa
-        $narrativa->problematicas()->save($problematica) ; 
+        #$narrativa->problematicas()->save($problematica) ; 
         return redirect()->back()->with('success', 'Problematica creada correctamente');
     }
 

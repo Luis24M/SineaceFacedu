@@ -15,11 +15,6 @@ class Narrativa extends Model
         'misionPrograma',
     ];
 
-    public function problematicas(): HasMany
-    {
-        return $this->hasMany(Problematica::class);
-    }
-
     public function contextualizacion(): BelongsTo{
         return $this->belongsTo(Contextualizacion::class);
     }
