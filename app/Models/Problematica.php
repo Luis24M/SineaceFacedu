@@ -10,10 +10,10 @@ class Problematica extends Model
     protected $connection = 'mongodb';
     protected $fillable = [
         'nombre',
-        'description'
+        'description',
+        'planDeMejora'
     ];
-
-    public function narrativa():BelongsTo{
-        return $this->belongsTo(Narrativa::class);
+    public function contextualizacion(): BelongsTo{
+        return $this->belongsTo(Contextualizacion::class);
     }
 }

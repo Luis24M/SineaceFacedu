@@ -39,6 +39,43 @@
                 </div>
             </div>
         </div>
+        <div class="mt-5 flex flex-col bg-neutral-200 drop-shadow-md p-4 rounded-xl gap-4">
+    <h1 class="text-3xl font-medium" id="misionFacultad">Misión Institucional</h1>
+    <p>¿Desea modificar la misión institucional?</p>
+    <form method="post" action="{{route('home.asignarMisionUNT')}}">
+    @csrf
+        <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Misión Institucional</label>
+        <textarea id="message" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 
+        rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+         placeholder="Ingrese sus ideas" rows=5 name="mision">{{$narrativa->misionUNT ? $narrativa->misionUNT : 'No hay Mision institucional actualmente' }}</textarea>
+
+        <!-- Contenedor del botón alineado a la derecha -->
+        <div class="flex justify-end mt-3">
+            <button type="submit" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                Guardar
+            </button>
+        </div>
+    </form>
+ </div>
+
+    <div class="mt-5 flex flex-col bg-neutral-200 drop-shadow-md p-4 rounded-xl gap-4">
+    <h1 class="text-3xl font-medium" id="misionFacultad">Misión de Facultad</h1>
+    <p>¿Desea modificar la misión de la facultad?</p>
+    <form method="post" action="{{route('home.asignarMisionFacultad')}}">
+    @csrf
+        <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Misión de Facultad</label>
+        <textarea id="message" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 
+        rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+         placeholder="Ingrese sus ideas" rows=5 name="mision">{{$narrativa->misionFacultad ? $narrativa->misionFacultad : 'No hay Mision de Facultad actualmente'}}</textarea>
+
+        <!-- Contenedor del botón alineado a la derecha -->
+        <div class="flex justify-end mt-3">
+            <button type="submit" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                Guardar
+            </button>
+        </div>
+    </form>
+ </div>
     @else
         <div class="bg-orange-100 h-1/2 border-2 border-orange-500 text-orange-700 p-4 mt-5 flex flex-col justify-center items-center">
             <h2 class="text-3xl">No hay programas actualmente</h2>
@@ -125,43 +162,7 @@
     </div>
     
 
-    <div class="mt-5 flex flex-col bg-neutral-200 drop-shadow-md p-4 rounded-xl gap-4">
-    <h1 class="text-3xl font-medium" id="misionFacultad">Misión Institucional</h1>
-    <p>¿Desea modificar la misión institucional?</p>
-    <form method="post" action="{{route('home.asignarMisionUNT')}}">
-    @csrf
-        <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Misión Institucional</label>
-        <textarea id="message" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 
-        rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-         placeholder="Ingrese sus ideas" rows=5 name="mision">{{$narrativa->misionUNT}}</textarea>
 
-        <!-- Contenedor del botón alineado a la derecha -->
-        <div class="flex justify-end mt-3">
-            <button type="submit" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                Guardar
-            </button>
-        </div>
-    </form>
- </div>
-
-    <div class="mt-5 flex flex-col bg-neutral-200 drop-shadow-md p-4 rounded-xl gap-4">
-    <h1 class="text-3xl font-medium" id="misionFacultad">Misión de Facultad</h1>
-    <p>¿Desea modificar la misión de la facultad?</p>
-    <form method="post" action="{{route('home.asignarMisionFacultad')}}">
-    @csrf
-        <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Misión de Facultad</label>
-        <textarea id="message" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 
-        rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-         placeholder="Ingrese sus ideas" rows=5 name="mision">{{$narrativa->misionFacultad}}</textarea>
-
-        <!-- Contenedor del botón alineado a la derecha -->
-        <div class="flex justify-end mt-3">
-            <button type="submit" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                Guardar
-            </button>
-        </div>
-    </form>
- </div>
 
  
 

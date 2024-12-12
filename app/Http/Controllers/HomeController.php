@@ -118,8 +118,6 @@ class HomeController extends Controller
             'dni'=>$validateData['dni'],
             'password'=>$request->dni,
             'rol'=>'adminPrograma',
-            #'subcomite',
-            #'programa'=>$request->programa,    -> CREACION CON METODO
         ]);
 
     
