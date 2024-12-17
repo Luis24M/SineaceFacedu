@@ -41,9 +41,13 @@
             <br>
             <div>
                 <h3>DESCRIPCIÓN</h3>
+                @if($problematicas === null)
+                    <p>No se encontraron brechas</p>
+                @else
                 @foreach ($problematicas as $problematica)
                     <p>{{ $problematica->description }}</p> <br>
                 @endforEach
+                @endif
                 <button id="content" class="py-2 px-4 bg-green-500 rounded-lg mt-2" onclick="problematica()">Agregar
                     Problematica</button>
             </div>

@@ -72,7 +72,7 @@
     </div>
 
 
-    <div class="order-last">
+    <div class="mt-4 order-last pl-1">
         <a class="dropdown-item flex hover:font-bold" href="{{ route('logout') }}"
             onclick="event.preventDefault();
                      document.getElementById('logout-form').submit();">

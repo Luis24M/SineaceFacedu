@@ -138,15 +138,23 @@
                             <p>
                                 {!! $narrativa->misionPrograma !!}
                             </p>
+                            @if($problematicas === null)
+                            <p>No se encontraron brechas</p>
+                            @else
                             @foreach ($problematicas as $problematica)
                             <p>{{ $problematica->description }}</p> <br>
                             @endforeach
+                            @endif
                         </div>
                         <h2 class="section-title">2. Brechas (dificultades encontradas)</h2>
                         <ul>
+                            @if($problematicas === null)
+                            <p>No se encontraron brechas</p>
+                            @else
                             @foreach ($problematicas as $problematica)
                             <li>{{ $problematica->nombre }}</li>
                             @endforeach
+                            @endif
                         </ul>
                         <h2 class="section-title">3. Plan de mejora (indicar si la acción de mejora se podrá elaborar a corto, mediano o largo plazo)</h2>
                     </td>

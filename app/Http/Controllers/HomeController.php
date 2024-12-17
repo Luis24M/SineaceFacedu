@@ -12,6 +12,7 @@ use App\Models\Estandar;
 use App\Models\Programa;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -91,59 +92,98 @@ class HomeController extends Controller
     }
 
     /*ESTANDARES DE PROGRAMAS */
-    public function CrearPrograma(Request $request){
-
-        $validateData = $request->validate([
-            'programa'=>'unique:programas,nombre',
-            'dni'=>'unique:users,dni'
-        ]);
-
-        $infoestandares = InfoEstandar::all();
-        $estandares=[];
-        foreach($infoestandares as $infoestandar){
-            $estandar=Estandar::create();
-            $contextualizacion = Contextualizacion::create();
-            $estandar->contextualizacion()->save($contextualizacion);
-            $narrativa=Narrativa::create();
-            $contextualizacion->narrativa()->save($narrativa);
-            $infoestandar->estandares()->save($estandar);
-            array_push($estandares,$estandar);
-        }
-        /*COORDINADOR DE PROGRAMA */
-
-        $coordinador = User::Create([
-            'name'=>$request->nombre,
-            'lastname'=>$request->apellido,
-            'email'=>$request->email,
-            'dni'=>$validateData['dni'],
-            'password'=>$request->dni,
-            'rol'=>'adminPrograma',
-        ]);
-
+    public function CrearPrograma(Request $request)
+    {
+        // Aumentar tiempo de ejecución si es necesario
+        set_time_limit(120);
     
-        $subcomites = collect([
-            ['nombre' => 'Gestión Misional del Programa','estandares' => [0, 2, 4, 5, 6, 7, 8, 9, 10, 17, 32]],
-            ['nombre' => 'Investigación y Responsabilidad Social Universitaria', 'estandares' => [11, 21, 22, 23, 24, 25]],
-            ['nombre' => 'Seguimiento al Egresado', 'estandares' => [1, 32, 33]],
-            ['nombre' => 'Seguimiento al Estudiante y Movilidad', 'estandares' => [12, 18, 19]],
-            ['nombre' => 'Desarrollo Docente, Administrativo y Actividades Extracurriculares', 'estandares' => [13, 14, 15, 16, 20, 26]],
-            ['nombre' => 'Prácticas Pre Profesionales, Recursos, Equipamiento e Infraestructura', 'estandares' => [3, 27, 28, 29, 30, 31]],
-        ])->map(function ($data) use ($estandares) {
-            $subcomite = Subcomite::create(['nombre' => $data['nombre']]);
-            $subcomite->estandares()->saveMany((array_map(fn($index) => $estandares[$index], $data['estandares'])));
-            return $subcomite;
-        });
-
-        $programa = Programa::create([
-            'nombre' => $validateData['programa'],
-        ]);
-        $programa->adminPrograma()->save($coordinador);
-        
-        $programa->subcomites()->saveMany($subcomites);
-
-        $narrativa=Narrativa::first();
-
-        return redirect()->route('usuario.home');
+        // Iniciar transacción de base de datos
+        DB::beginTransaction();
+    
+        try {
+            // Validación de datos
+            $validateData = $request->validate([
+                'programa' => 'unique:programas,nombre',
+                'dni' => 'unique:users,dni',
+                'nombre' => 'required',
+                'apellido' => 'required',
+                'email' => 'required|email',
+            ]);
+    
+            // Obtener todos los InfoEstandares de una vez
+            $infoestandares = InfoEstandar::all();
+    
+            // Crear estandares en lote
+            $estandares = $infoestandares->map(function($infoestandar) {
+                $contextualizacion = Contextualizacion::create();
+                $narrativa = Narrativa::create();
+                
+                $estandar = Estandar::create();
+                $estandar->contextualizacion()->save($contextualizacion);
+                $contextualizacion->narrativa()->save($narrativa);
+                $infoestandar->estandares()->save($estandar);
+                
+                return $estandar;
+            });
+    
+            // Crear coordinador
+            $coordinador = User::create([
+                'name' => $request->nombre,
+                'lastname' => $request->apellido,
+                'email' => $request->email,
+                'dni' => $validateData['dni'],
+                'password' => bcrypt($request->dni), // Usar bcrypt para hashear contraseña
+                'rol' => 'adminPrograma',
+            ]);
+    
+            // Definición de subcomités con mapeo de estándares optimizado
+            $subcomitesData = [
+                ['nombre' => 'Gestión Misional del Programa', 'estandares' => [0, 2, 4, 5, 6, 7, 8, 9, 10, 17, 32]],
+                ['nombre' => 'Investigación y Responsabilidad Social Universitaria', 'estandares' => [11, 21, 22, 23, 24, 25]],
+                ['nombre' => 'Seguimiento al Egresado', 'estandares' => [1, 32, 33]],
+                ['nombre' => 'Seguimiento al Estudiante y Movilidad', 'estandares' => [12, 18, 19]],
+                ['nombre' => 'Desarrollo Docente, Administrativo y Actividades Extracurriculares', 'estandares' => [13, 14, 15, 16, 20, 26]],
+                ['nombre' => 'Prácticas Pre Profesionales, Recursos, Equipamiento e Infraestructura', 'estandares' => [3, 27, 28, 29, 30, 31]],
+            ];
+    
+            // Crear subcomités en lote
+            $subcomites = collect($subcomitesData)->map(function ($data) use ($estandares) {
+                $subcomite = Subcomite::create(['nombre' => $data['nombre']]);
+                
+                // Filtrar solo los estándares existentes
+                $subcomiteEstandares = collect($data['estandares'])
+                    ->map(fn($index) => $estandares[$index] ?? null)
+                    ->filter();
+                
+                $subcomite->estandares()->saveMany($subcomiteEstandares);
+                return $subcomite;
+            });
+    
+            // Crear programa
+            $programa = Programa::create([
+                'nombre' => $validateData['programa'],
+            ]);
+    
+            // Asociar relaciones
+            $programa->adminPrograma()->save($coordinador);
+            $programa->subcomites()->saveMany($subcomites);
+    
+            // Commit de la transacción
+            DB::commit();
+    
+            // Redirección
+            return redirect()->route('usuario.home')->with('success', 'Programa creado exitosamente');
+    
+        } catch (\Exception $e) {
+            // Rollback en caso de error
+            DB::rollBack();
+    
+            // Log del error
+            \Log::error('Error al crear programa: ' . $e->getMessage());
+    
+            // Redirección con mensaje de error
+            return redirect()->back()->with('error', 'Ocurrió un error al crear el programa');
+        }
     }
 
     public function AsignarMisionUNT(Request $request){

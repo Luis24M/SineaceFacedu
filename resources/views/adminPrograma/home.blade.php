@@ -34,7 +34,6 @@
         <section class="bg-neutral-200 p-4 rounded-xl">
             <div class="flex justify-between pr-5">
                 <h1 class="text-2xl font-bold">Usuarios</h1>
-                <button class="bg-green-500 text-white px-2 py-1 rounded-lg" onclick="modal()">Agregar</button>
             </div>
             <table class="w-full">
                 <thead>
@@ -68,6 +67,8 @@
                     @endforeach
                 </tbody>
             </table>
+            <button class="bg-green-500 text-white px-2 py-1 rounded-lg" onclick="modalAgregar()">Agregar</button>
+
         </section>
         
     </section>    
@@ -79,6 +80,13 @@
         function modal() {
             const modal = document.getElementById('modal');
             modal.classList.toggle('hidden');
+        }
+
+        function modalAgregar() {
+            const modal = document.getElementById('modal');
+            modal.classList.toggle('hidden');
+            // limpiar form
+            
         }
     </script>
 @endsection 

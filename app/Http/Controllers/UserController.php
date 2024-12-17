@@ -78,7 +78,7 @@ class UserController extends Controller
             }
     
             // Adjunta al nuevo subcomité
-            $nuevoSubcomite->usuarios()->attach($user->id);
+            $nuevoSubcomite->usuarios()->save($user->id);
     
             // Actualiza el nombre del subcomité en el usuario
             $data['subcomite'] = $nuevoSubcomite->nombre;
