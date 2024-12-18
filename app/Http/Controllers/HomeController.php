@@ -60,8 +60,9 @@ class HomeController extends Controller
         
         $programa=Auth::user()->programa;
         $subcomites = $programa->subcomites;
+        $narrativa = $subcomites->first()->estandares->first()->contextualizacion->narrativa;
         $usuarios = $subcomites->pluck('usuarios')->flatten(); // Todos los usuarios de los subcomites del programa, pluck para obtener solo los usuarios de cada subcomite y flatten para aplanar el array de arrays
-        return view('adminPrograma.home', compact('programa', 'subcomites','usuarios'));
+        return view('adminPrograma.home', compact('programa', 'subcomites','usuarios','narrativa'));
     }
 
 
@@ -186,36 +187,36 @@ class HomeController extends Controller
         }
     }
 
-    public function AsignarMisionUNT(Request $request){
+    public function AsignarMisionUNT(Request $request)
+    {
         try {
-            $narrativas = Narrativa::all();
-            foreach($narrativas as $narrativa){
-                $narrativa->misionUNT = $request->mision;
-                $narrativa->save();
-            }
+            // Actualiza el campo `misionUNT` en todos los documentos de la colección `narrativas`
+            Narrativa::query()->update(['misionUNT' => $request->mision]);
     
+            // Redirecciona con un mensaje de éxito
             return redirect()->route('usuario.home')->with('success', 'Misión actualizada');
         } catch (\Exception $e) {
-            // Esto te ayudará a ver el error exacto
-            return back()->with('error', $e->getMessage());
+            // Manejo de errores para capturar y mostrar cualquier problema
+            return back()->with('error', 'Error al actualizar la misión: ' . $e->getMessage());
         }
     }
+    
     
 
-    public function AsignarMisionFacultad(Request $request){
+    public function AsignarMisionFacultad(Request $request)
+    {
         try {
-            $narrativas = Narrativa::all();
-            foreach($narrativas as $narrativa){
-                $narrativa->misionFacultad = $request->mision;
-                $narrativa->save();
-            }
+            // Actualiza el campo `misionFacultad` en todos los documentos de la colección `narrativas`
+            Narrativa::query()->update(['misionFacultad' => $request->mision]);
     
-            return redirect()->route('usuario.home')->with('success', 'Misión actualizada');
+            // Redirecciona con un mensaje de éxito
+            return redirect()->route('usuario.home')->with('success', 'Misión de facultad actualizada');
         } catch (\Exception $e) {
-            // Esto te ayudará a ver el error exacto
-            return back()->with('error', $e->getMessage());
+            // Manejo de errores para capturar y mostrar cualquier problema
+            return back()->with('error', 'Error al actualizar la misión de facultad: ' . $e->getMessage());
         }
     }
+    
 
 
     public function CrearUsuario(Request $request, Programa $programa){

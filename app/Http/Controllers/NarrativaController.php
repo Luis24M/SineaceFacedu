@@ -13,8 +13,8 @@ class NarrativaController extends Controller
     public function index()
     {
         //
-        $narrativa =  Narrativa::first();
-        return response()->json($narrativa->misionUNT);
+        $narrativa =  Narrativa::all();
+        return response()->json($narrativa);
     }
 
     /**
